@@ -1,0 +1,27 @@
+﻿<div id="paycs"></div>
+<script type="text/javascript">
+    var dataTable = initDataTable('paycs', '$url("pay/list/")', [
+        { name: 'Name', type: 'string' },
+        { name: 'Partner', type: 'string' },
+        { name: 'PartnerId', type: 'string' },
+        { name: 'PartnerKey', type: 'string' },
+        { name: 'Enabled', type: 'bool' }
+    ], [
+			{ text: '名称', datafield: 'Name', width: '15%', editable: false },
+            { text: '帐号', datafield: 'Partner', width: '25%', columntype: 'textbox' },
+			{ text: '支付ID', datafield: 'PartnerId', width: '25%', columntype: 'textbox' },
+			{ text: '支付KEY', datafield: 'PartnerKey', width: '25%', columntype: 'textbox' },
+            { text: '启用', datafield: 'Enabled', width: '10%', columntype: 'checkbox' }
+    ], null, function (rowid, rowdata, commit) {
+        postAjax('$url("pay/mod")', 'Id=' + encodeURIComponent(rowdata.Id) + '&Name=' + encodeURIComponent(rowdata.Name) + '&Partner=' + encodeURIComponent(rowdata.Partner) + '&PartnerId=' + encodeURIComponent(rowdata.PartnerId) + '&PartnerKey=' + encodeURIComponent(rowdata.PartnerKey) + '&Enabled=' + encodeURIComponent(rowdata.Enabled), function (data, args) {
+            if (showResult(data, '修改支付设置成功', '修改支付设置失败')) {
+                args(true);
+                dataTable.reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadPage(1);
+</script>

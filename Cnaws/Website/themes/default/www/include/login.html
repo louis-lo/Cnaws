@@ -1,0 +1,68 @@
+﻿<div id="dlgLogin" style="display:none" class="m-loginWrap">
+    <div><h1>登录网易邮箱账号</h1></div>
+    <div>
+        <div class="iDialogBody">
+            <div class="iDialogMain">
+                <form method="post" action="https://reg.163.com/logins.jsp" id="loginForm" target="_self">
+                    <div class="loginForm">
+                        <ul class="formList" id="loginBox">
+                            <li style="display:none;" class="loginErr">
+                                <em class="erricon"></em>
+                                <em class="err loginErrTip" id="LoginErrInfo">errortext</em>
+                            </li>
+                            <li>
+                                <div id="useremail_box" class="import">
+                                    <span class="icon"></span>
+                                    <input type="text" id="login_username" autocomplete="off" name="username">
+                                </div>
+                            </li>
+                            <li>
+                                <div id="password_box" class="import">
+                                    <span class="icon"></span>
+                                    <input type="password" id="login_password" autocomplete="off" name="password">
+                                </div>
+                            </li>
+                            <li class="auto clearfix">
+                                <em class="fleft">
+                                    <label title="请不要在网吧或公共场所使用该功能" class="m-checkbox m-checked" id="login_savelogin">
+                                        <span class="box">
+                                            <i></i>
+                                            <em></em>
+                                        </span>两周内自动登录
+                                    </label>
+                                </em>
+                                <em class="fright"><a id="login_pswUrl" href="$url('/getpasswd')" class="c_666">忘记密码？</a></em>
+                            </li>
+                            <li>
+                                <em><input type="submit" value="登录" class="loginBtn" id="loginin"></em>
+                            </li>
+                            <li class="regtip">
+                                <em>还不是网易用户？&nbsp;<a id="login_reg" href="$url('/register')">立即免费注册&gt;</a></em>
+                            </li>
+                        </ul>
+                        <ul class="m-thirdpart clearfix">
+                            <li class="wb">
+                                <a class="w-btn3" href="http://reg.163.com/outerLogin/oauth2/connect.do?product=kaola&amp;url2=http%3A%2F%2Fglobal.163.com%2Furs%2Fredirect.html&amp;domains=global.163.com&amp;target=3&amp;url=http%3A%2F%2Fglobal.163.com%2Furs%2Fredirect.html?target=http%3A%2F%2Fwww.kaola.com%2F%3Futm_source%3D163MH%26utm_campaign%3DSC-menhu-guding1">
+                                    <i class="w-icon w-icon-18"></i>
+                                    <span>微博登录</span>
+                                </a>
+                            </li>
+                            <li class="qq">
+                                <a class="w-btn3" href="http://reg.163.com/outerLogin/oauth2/connect.do?product=kaola&amp;url2=http%3A%2F%2Fglobal.163.com%2Furs%2Fredirect.html&amp;domains=global.163.com&amp;target=1&amp;url=http%3A%2F%2Fglobal.163.com%2Furs%2Fredirect.html?target=http%3A%2F%2Fwww.kaola.com%2F%3Futm_source%3D163MH%26utm_campaign%3DSC-menhu-guding1">
+                                    <i class="w-icon w-icon-18 w-icon-18-1"></i><span>QQ登录</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" name="url" value="http://global.163.com/urs/redirect.html?target=http%3A%2F%2Fwww.kaola.com%2Fpersonal%2Fmy_order.html" id="login_url">
+                    <input type="hidden" name="savelogin" value="1">
+                    <input type="hidden" name="domains" value="kaola.com,163.com">
+                    <input type="hidden" value="kaola" name="product">
+                    <input type="hidden" value="1" name="type">
+                    <input type="hidden" value="1" name="append">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="$res('js/login.js')"></script>

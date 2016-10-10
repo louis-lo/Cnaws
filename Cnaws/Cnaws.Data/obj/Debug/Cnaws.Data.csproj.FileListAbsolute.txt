@@ -1,0 +1,14 @@
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.Data.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.Data.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\obj\Debug\Cnaws.Data.csprojResolveAssemblyReference.cache
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\obj\Debug\Cnaws.Data.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Data\obj\Debug\Cnaws.Data.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.Data.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.Data.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Data\bin\Debug\Cnaws.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Data\obj\Debug\Cnaws.Data.csprojResolveAssemblyReference.cache
+E:\Project\Cnaws\Cnaws\Cnaws.Data\obj\Debug\Cnaws.Data.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Data\obj\Debug\Cnaws.Data.pdb

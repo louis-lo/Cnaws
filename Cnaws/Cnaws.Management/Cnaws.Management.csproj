@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A9D5661-CF49-47F6-A265-D33DF86A27DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cnaws.Management</RootNamespace>
+    <AssemblyName>Cnaws.Management</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ManagementMenu.cs" />
+    <Compile Include="ManagementPassport.cs" />
+    <Compile Include="ManagementRight.cs" />
+    <Compile Include="Modules\Admin.cs" />
+    <Compile Include="Modules\AdminRight.cs" />
+    <Compile Include="Modules\AdminRole.cs" />
+    <Compile Include="Controllers\Management.cs" />
+    <Compile Include="Modules\Log.cs" />
+    <Compile Include="ManagementController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cnaws.Area\Cnaws.Area.csproj">
+      <Project>{4fa51704-50b8-48bc-889e-a3ea2c723258}</Project>
+      <Name>Cnaws.Area</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cnaws.Data\Cnaws.Data.csproj">
+      <Project>{ce902b7f-b059-4762-8b53-eecbcb1b831c}</Project>
+      <Name>Cnaws.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cnaws.Json\Cnaws.Json.csproj">
+      <Project>{1c0696f0-1736-4b61-b581-a038ed1f67e5}</Project>
+      <Name>Cnaws.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cnaws.Web\Cnaws.Web.csproj">
+      <Project>{ef5fbd6b-c513-458a-9aa0-19ffa1c64aba}</Project>
+      <Name>Cnaws.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cnaws\Cnaws.csproj">
+      <Project>{e629a227-782d-47a6-b49b-31ff16ccbeb2}</Project>
+      <Name>Cnaws</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="styles\login.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="images\buttonbg.png" />
+    <EmbeddedResource Include="images\cloud.png" />
+    <EmbeddedResource Include="images\dp.png" />
+    <EmbeddedResource Include="images\help.png" />
+    <EmbeddedResource Include="images\iadd.png" />
+    <EmbeddedResource Include="images\ico01.png" />
+    <EmbeddedResource Include="images\ico02.png" />
+    <EmbeddedResource Include="images\ico03.png" />
+    <EmbeddedResource Include="images\ico04.png" />
+    <EmbeddedResource Include="images\ico05.png" />
+    <EmbeddedResource Include="images\ico06.png" />
+    <EmbeddedResource Include="images\icon01.png" />
+    <EmbeddedResource Include="images\icon02.png" />
+    <EmbeddedResource Include="images\icon03.png" />
+    <EmbeddedResource Include="images\icon04.png" />
+    <EmbeddedResource Include="images\icon05.png" />
+    <EmbeddedResource Include="images\icon06.png" />
+    <EmbeddedResource Include="images\leftico.png" />
+    <EmbeddedResource Include="images\leftline.gif" />
+    <EmbeddedResource Include="images\leftmenubg.png" />
+    <EmbeddedResource Include="images\lefttop.gif" />
+    <EmbeddedResource Include="images\libg.png" />
+    <EmbeddedResource Include="images\light.png" />
+    <EmbeddedResource Include="images\line.gif" />
+    <EmbeddedResource Include="images\list.gif" />
+    <EmbeddedResource Include="images\list1.gif" />
+    <EmbeddedResource Include="images\loginbg1.png" />
+    <EmbeddedResource Include="images\loginbg2.png" />
+    <EmbeddedResource Include="images\loginbg3.png" />
+    <EmbeddedResource Include="images\logincaptcha.png" />
+    <EmbeddedResource Include="images\logininfo.png" />
+    <EmbeddedResource Include="images\loginlogo.png" />
+    <EmbeddedResource Include="images\loginpassword.png" />
+    <EmbeddedResource Include="images\loginsj.png" />
+    <EmbeddedResource Include="images\loginuser.png" />
+    <EmbeddedResource Include="images\logo.png" />
+    <EmbeddedResource Include="images\msg.png" />
+    <EmbeddedResource Include="images\navbg.png" />
+    <EmbeddedResource Include="images\pie.htc" />
+    <EmbeddedResource Include="images\righttop.gif" />
+    <EmbeddedResource Include="images\rlist.gif" />
+    <EmbeddedResource Include="images\sj.png" />
+    <EmbeddedResource Include="images\sun.png" />
+    <EmbeddedResource Include="images\time.png" />
+    <EmbeddedResource Include="images\topbg.gif" />
+    <EmbeddedResource Include="images\topleft.jpg" />
+    <EmbeddedResource Include="images\topright.jpg" />
+    <EmbeddedResource Include="images\ub1.png" />
+    <EmbeddedResource Include="images\user.png" />
+    <EmbeddedResource Include="styles\base.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="styles\management.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\management.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\login.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_site.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_cache.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\log.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\adminrole.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\admin.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\welcome.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="scripts\cloud.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="styles\index.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="images\add.png" />
+    <EmbeddedResource Include="images\btnbg.png" />
+    <EmbeddedResource Include="images\btnbg1.png" />
+    <EmbeddedResource Include="images\btnbg2.png" />
+    <EmbeddedResource Include="images\c01.png" />
+    <EmbeddedResource Include="images\c02.png" />
+    <EmbeddedResource Include="images\c03.png" />
+    <EmbeddedResource Include="images\cbg.png" />
+    <EmbeddedResource Include="images\clist.png" />
+    <EmbeddedResource Include="images\close.gif" />
+    <EmbeddedResource Include="images\close.png" />
+    <EmbeddedResource Include="images\close1.png" />
+    <EmbeddedResource Include="images\d01.png" />
+    <EmbeddedResource Include="images\d02.png" />
+    <EmbeddedResource Include="images\d03.png" />
+    <EmbeddedResource Include="images\d04.png" />
+    <EmbeddedResource Include="images\d05.png" />
+    <EmbeddedResource Include="images\d06.png" />
+    <EmbeddedResource Include="images\d07.png" />
+    <EmbeddedResource Include="images\diskbg.png" />
+    <EmbeddedResource Include="images\error404.png" />
+    <EmbeddedResource Include="images\f01.png" />
+    <EmbeddedResource Include="images\f02.png" />
+    <EmbeddedResource Include="images\f03.png" />
+    <EmbeddedResource Include="images\f04.png" />
+    <EmbeddedResource Include="images\f05.png" />
+    <EmbeddedResource Include="images\f06.png" />
+    <EmbeddedResource Include="images\forbid.png" />
+    <EmbeddedResource Include="images\i01.png" />
+    <EmbeddedResource Include="images\i02.png" />
+    <EmbeddedResource Include="images\i03.png" />
+    <EmbeddedResource Include="images\i04.png" />
+    <EmbeddedResource Include="images\i05.png" />
+    <EmbeddedResource Include="images\i06.png" />
+    <EmbeddedResource Include="images\i07.png" />
+    <EmbeddedResource Include="images\i08.png" />
+    <EmbeddedResource Include="images\i09.png" />
+    <EmbeddedResource Include="images\ibtnbg.png" />
+    <EmbeddedResource Include="images\inputbg.gif" />
+    <EmbeddedResource Include="images\itabbg.png" />
+    <EmbeddedResource Include="images\itabbg1.png" />
+    <EmbeddedResource Include="images\leftico01.png" />
+    <EmbeddedResource Include="images\leftico02.png" />
+    <EmbeddedResource Include="images\leftico03.png" />
+    <EmbeddedResource Include="images\leftico04.png" />
+    <EmbeddedResource Include="images\leftmenubg.gif" />
+    <EmbeddedResource Include="images\line1.png" />
+    <EmbeddedResource Include="images\list2.png" />
+    <EmbeddedResource Include="images\navigation.gif" />
+    <EmbeddedResource Include="images\next.gif" />
+    <EmbeddedResource Include="images\pagefirst.gif" />
+    <EmbeddedResource Include="images\pagelast.gif" />
+    <EmbeddedResource Include="images\pre.gif" />
+    <EmbeddedResource Include="images\px.gif" />
+    <EmbeddedResource Include="images\search.png" />
+    <EmbeddedResource Include="images\t01.png" />
+    <EmbeddedResource Include="images\t02.png" />
+    <EmbeddedResource Include="images\t03.png" />
+    <EmbeddedResource Include="images\t04.png" />
+    <EmbeddedResource Include="images\t05.png" />
+    <EmbeddedResource Include="images\tbg.png" />
+    <EmbeddedResource Include="images\tcbg.gif" />
+    <EmbeddedResource Include="images\th.gif" />
+    <EmbeddedResource Include="images\ticon.png" />
+    <EmbeddedResource Include="images\toolbg.gif" />
+    <EmbeddedResource Include="images\uew_icon.png" />
+    <EmbeddedResource Include="images\uew_icon_hover.png" />
+    <EmbeddedResource Include="images\ulist.png" />
+    <EmbeddedResource Include="images\userbg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_robots.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\db_backup.html" />
+    <EmbeddedResource Include="html\db_excute.html" />
+    <EmbeddedResource Include="html\db_reduce.html" />
+    <EmbeddedResource Include="html\db_vacuum.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_config.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_sitemap.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_captcha.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_passport.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_email.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_smscaptcha.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_filesystem.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="html\system_friendlink.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="images\upload_img.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="images\tableth.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,45 @@
+﻿#docHead{border-bottom:1px solid #ededee;margin-bottom:80px}
+#toplist h3{line-height:20px}
+#toplist p{display:block}
+a,a:hover{text-decoration:none}
+.foot a:hover{opacity:.7;filter:alpha(opacity=70)}
+.m-regBody{width:1000px;margin:0 auto 70px}
+.m-regBody .m-regWrap{float:right;width:100%;border:1px solid #eaeaea;font-size:12px}
+.m-regWrap h2{height:24px;padding-bottom:10px;font-size:18px;line-height:24px;font-weight:700;color:#333;padding:22px 40px 10px}
+.m-regWrap h2 span{float:right;display:inline;font-size:14px;font-weight:normal}
+.m-regWrap h2 .tit{float:left;font-size:18px;text-indent:170px}
+.m-regWrap h2 a{float:right;font-size:14px;font-weight:400;margin-left:4px;margin-right:150px}
+.m-regWrap h2 a:hover{color:#51B8F1}
+.m-regWrap .loginErr{margin:5px 0 15px;margin-left:170px}
+.m-regWrap .erricon{float:left;font-family:iconfont!important;color:#D12147;height:20px;font-size:19px;line-height:20px}
+.m-regWrap .err{display:inline-block;height:20px;padding-left:5px;color:#D22147;line-height:20px}
+.m-regWrap .import{position:relative;height:26px;width:336px;padding:2px 0;margin-bottom:10px;border:1px solid #ddd;z-index:1;font-size:14px;margin-left:170px}
+.m-regWrap .agreement{margin-left:170px}
+.m-regWrap #useremail_box{z-index:3}
+.m-regWrap .importerr{border-color:#D22147}
+.m-regWrap .icon{float:left;display:inline-block;height:26px;width:34px;border-right:1px solid #ddd;font-family:iconfont!important;color:#ccc;font-size:18px;text-align:center;line-height:26px}
+.m-regWrap .import input{position:relative;z-index:3;height:18px;width:278px;padding:4px 10px;line-height:18px;border:0;outline:0;ime-mode:disabled;background:url(../img/emptybg.png)}
+.m-regWrap .suggest_list{display:none;position:absolute;top:31px;_top:33px;left:-1px;_width:268px;min-width:268px;border:1px solid #ddd;border-top:none;background-color:#fff;z-index:99}
+.m-regWrap .suggest_list h6{display:none}
+.m-regWrap .suggest_list li{height:14px;min-width:213px;_width:213px;padding:10px 10px 10px 45px;cursor:pointer}
+.m-regWrap .suggest_list .list_focus,.m-loginWrap .suggest_list li:hover{background-color:#f7f7f7}
+.m-regWrap .iframe{position:absolute;width:100%;height:100%;z-index:-1;display:none;left:0;top:26px;_top:35px;border:0}
+.m-regWrap .auto{margin:17px 0}
+.m-regWrap .regBtn{display:inline-block;width:270px;height:40px;border:0;background-color:#D22147;outline:0;font-size:18px;line-height:40px;color:#fff;text-align:center;cursor:pointer;margin-left:170px}
+.m-regWrap .regBtn:hover{background-color:#F5345E}
+.m-regWrap .regtip{margin-top:17px;text-align:center;color:#666}
+.m-regWrap .iDialogMain{width:350px;padding:0}
+.m-regWrap .formList{width:568px;padding:0 40px 26px;margin-top:10px}
+.m-regWrap .formList li{height:44px}
+.m-regWrap .formList label{width:160px;text-align:right;font-size:14px;position:absolute;margin-top:4px}
+.m-regWrap .m-regRight{width:350px;float:right}
+.m-regWrap #smsbtn,.m-regWrap #captcha_img{position:absolute;margin-left:398px;margin-top:4px;_margin-top:7px}
+.m-regWrap #smsbtn{padding:6px;margin-top:0;_margin-top:0;width:120px;_padding:6px 0;margin-left:388px;border-radius:0;border-color:#DDD}
+.m-regWrap #captcha_img{margin-top:0;cursor:pointer}
+.m-regWrap .captcha{width:138px}
+.m-regWrap .captcha input{width:80px}
+.foot{text-align:center;font-size:14px;color:#666}
+.foot a{color:#666}
+.foot span{margin:0 20px}
+.foot p{font-size:12px;color:#999;margin:15px 0 10px}
+.jqx-validator-error-label{position:absolute !important;margin-left:346px;text-align:left !important;width:350px !important}

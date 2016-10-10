@@ -1,0 +1,10 @@
+E:\马驰骋\Cnaws\Cnaws\Cnaws\bin\Release\Cnaws.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws\bin\Release\Cnaws.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws\obj\Release\Cnaws.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws\obj\Release\Cnaws.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws\obj\Release\Cnaws.csprojResolveAssemblyReference.cache
+E:\Project\Cnaws\Cnaws\Cnaws\bin\Release\Cnaws.dll
+E:\Project\Cnaws\Cnaws\Cnaws\bin\Release\Cnaws.pdb
+E:\Project\Cnaws\Cnaws\Cnaws\obj\Release\Cnaws.csprojResolveAssemblyReference.cache
+E:\Project\Cnaws\Cnaws\Cnaws\obj\Release\Cnaws.dll
+E:\Project\Cnaws\Cnaws\Cnaws\obj\Release\Cnaws.pdb

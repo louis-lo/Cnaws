@@ -1,0 +1,247 @@
+﻿$if(isset("Order"))
+$set(maps=Order.GetMapping(this.DataSource))
+$set(supp=Order.GetSupplier(this.DataSource))
+$set(addr=json(Order.Address))
+<div class="p-main">
+    <div class="p-header"><span>订单号：$Order.Id</span><span style="float:right">$Order.GetStateString()时间：$Order.GetDateTime().ToString()</span></div>
+    <table border="0" cellpadding="0" cellspacing="0" class="table p-m-10">
+        <thead>
+            <tr>
+                <th>宝贝</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>买家留言</th>
+                <th>订单状态</th>
+                <th>实际支付</th>
+            </tr>
+        </thead>
+        <tbody>
+            $foreach(map in maps)
+            $set(info=json(map.ProductInfo))
+            <tr>
+                <td>
+                    <div><img src="$map.GetImage(info.Image)" alt="$info.Title" /></div>
+                    <div>
+                        <p><a href="http://www.xcpnet.com$url('/product/info/', map.ProductId)" target="_blank">$info.Title</a></p>
+                        <p>
+                            $foreach(attr in info.Series)
+                            $attr.Key：$attr.Value&nbsp;
+                            $end
+                        </p>
+                    </div>
+                </td>
+                <td>$map.Price.ToString("C2")</td>
+                <td>$map.Count$info.Unit</td>
+                $if(foreachIndex==1)
+                <td rowspan="$maps.Count">$Order.Message</td>
+                <td rowspan="$maps.Count">$Order.GetStateInfo()</td>
+                <td rowspan="$maps.Count">$Order.TotalMoney.ToString("C2")</td>
+                $end
+            </tr>
+            $end
+        </tbody>
+    </table>
+    <div class="p-main p-m-10">
+        <div class="p-header"><span>供应商信息</span></div>
+        <ul>
+            <li><label>公司名称：</label>$supp.Company</li>
+            <li><label>等级：</label>$if(supp.Level>0)优质$else普通$end供应商</li>
+            <li><label>签约人：</label>$supp.Signatories<label>联系电话：</label>$supp.SignatoriesPhone</li>
+            <li><label>负责人：</label>$supp.Contact<label>联系电话：</label>$supp.ContactPhone</li>
+            <li><label>公司地址：</label>$supp.Address</li>
+        </ul>
+    </div>
+    <div class="p-main p-m-10">
+        <div class="p-header"><span>买家信息</span></div>
+        <ul>
+            <li><label>收货人：</label>$addr.Consignee</li>
+            <li><label>联系电话：</label>$addr.Mobile</li>
+            <li><label>收货地址：</label>$addr.Province$addr.City$addr.County$addr.Address</li>
+            <li><label>邮政编码：</label>$addr.PostId</li>
+        </ul>
+    </div>
+    <div class="p-main p-m-10">
+        <div class="p-header"><span>付款方式</span></div>
+        <ul>
+            <li><label>付款方式：</label>$PayMent.GetPayTypeName()</li>
+            <li><label>付款金额：</label>$PayMent.Money.ToString("C2")</li>
+        </ul>
+    </div>
+</div>
+$else
+<style type="text/css">
+    .p-main td, .p-main th {
+        text-align: center;
+    }
+
+    .p-header, .p-header span, .p-main thead {
+        background: #CCC;
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .p-main img {
+        width: 96px;
+        height: 96px;
+    }
+
+    .p-main td, .p-main li, .p-main p {
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .p-main li {
+        padding: 0 10px;
+    }
+
+        .p-main li label {
+            width: 80px;
+            text-align: right;
+            float: left;
+            display: inline-block;
+        }
+
+    .p-header span {
+        float: left;
+        display: inline;
+        margin: 0 10px;
+    }
+
+    .p-m-10 {
+        margin-top: 10px;
+    }
+</style>
+<div id="orders"></div>
+<div id="order" style="display:none;">
+    <div><span id="righttitle">供应商信息</span></div>
+    <div>
+        <form id="form" action="" method="post">
+            <div id="s-content" style="margin-bottom:6px;width:700px;height:460px"></div>
+            <div style="float:right;padding:10px;">
+                <input class="approved submit" type="button" id="ok" value="确定" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+<input id="hcategory" type="hidden" value="0" />
+<script type="text/javascript">
+    var states = { 'Invalid': '交易关闭', 'Perfect': '等待完善', 'Payment': '等待付款', 'Delivery': '等待发货', 'Receipt': '等待收货', 'Evaluation': '等待评价', 'Finished': '交易完成' };
+    var categoryrenderer = function (row, column, value) {
+        var html = '<div class="action">';
+        if (value == 0) {
+            html += '根分类';
+        }
+        else {
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                if (allCategory.data[i].Id == value) {
+                    html += allCategory.data[i].Name;
+                    break;
+                }
+            }
+        }
+        html += '</div>';
+        return html;
+    }
+    var daterenderer = function (row, column, value) {
+        return '<div class="action">' + (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss') + '</div>';
+    };
+    var staterenderer = function (row, column, value) {
+        return '<div class="action">' + states[value] + '</div>';
+    };
+    var daterenderer = function (row, column, value) {
+        return '<div class="action">' + (new Date(value * 1000)).format('yyyy-MM-dd hh:mm:ss') + '</div>';
+    };
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return showInfo(\'' + value + '\')">查看详情</a><a href="javascript:;" onclick="return doNotify(\'' + value + '\')">通知发货</a></div>';
+    }
+    function showInfo(id) {
+        $.ajax({
+            type: "GET",
+            url: getUrl('$url("productorder/info/")' + id),
+            dataType: 'html',
+            success: function (data) {
+                $('#s-content').html(data);
+                $('#order').jqxWindow('open');
+            }
+        });
+    }
+    function doNotify(id) {
+
+    }
+    var mainWindow = initWindow('order', 'form', [], null, null, null, function () { }, function () {
+        mainWindow.close();
+        mainWindow.end();
+    }, null);
+    var dataTable = initDataTable('orders', '$url("productorder/list/")', [
+		{ name: 'a_Id', type: 'string' },
+		{ name: 'a_State', type: 'int' },
+		{ name: 'a_TotalMoney', type: 'float' },
+        { name: 'a_CreationDate', type: 'date' },
+        { name: 'a_PaymentDate', type: 'date' },
+		{ name: 'b_Company', type: 'string' },
+		{ name: 'b_Contact', type: 'string' },
+		{ name: 'b_ContactPhone', type: 'string' }
+    ], [
+        { text: '供应商', datafield: 'b_Company', width: '15%', editable: false },
+        { text: '联系人', datafield: 'b_Contact', width: '10%', editable: false },
+        { text: '联系电话', datafield: 'b_ContactPhone', width: '10%', editable: false },
+        { text: '总金额', datafield: 'a_TotalMoney', width: '10%', cellsformat: 'c2', editable: false },
+        { text: '创建时间', datafield: 'a_CreationDate', width: '16%', cellsrenderer: daterenderer, editable: false },
+        { text: '支付时间', datafield: 'a_PaymentDate', width: '16%', cellsrenderer: daterenderer, editable: false },
+        { text: '状态', datafield: 'a_State', width: '8%', cellsrenderer: staterenderer, editable: false },
+		{ text: '操作', datafield: 'a_Id', width: '15%', cellsrenderer: actionrenderer, editable: false }
+    ], function (toolbar) {
+        toolbar.empty();
+        toolbar.append($('<div style="margin:5px 0 5px 5px;float:left;display:inline;height:22px;line-height:22px;">当前分类：</div><div id="menucur" style="margin:5px 5px 5px 0;float:left;display:inline;height:22px;line-height:22px;">所有订单</div><input type="Hidden" id="StateId" name="StateId" value="-1">'));
+        toolbar.append($('<div id="catemenu" style="margin-top:1px;float:left;display:inline;"><ul><li>选择分类<ul id="menuitem_0"><li onclick="reloadPage(-1,1,\'所有订单\')">所有订单</li><li onclick="reloadPage(0,1,\'已关闭订单\')">已关闭订单</li><li onclick="reloadPage(1,1,\'待完善订单\')">待完善订单</li><li onclick="reloadPage(2,1,\'待付款订单\')">待付款订单</li><li onclick="reloadPage(3,1,\'待发货订单\')">待发货订单</li><li onclick="reloadPage(4,1,\'待收货订单\')">待收货订单</li><li onclick="reloadPage(5,1,\'待评价订单\')">待评价订单</li><li onclick="reloadPage(6,1,\'已完成订单\')">已完成订单</li></ul></li></ul></div>'));
+        toolbar.append($('<input type="text" id="keyword" name="keyword" class="text" style="height:23px;float:left;width:180px; margin-left:15px" value="" />'));
+        toolbar.append($("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px; margin-left:15px'onclick='reloadPages()' value='查询' />"));
+        $('#catemenu').jqxMenu({ height: 27, width: 70 });
+        document.maxWidth = $(document).width();
+        document.maxHeight = $(document).height();
+        $('#catemenu').on('shown', function (e) {
+            var doc = $(document);
+            var el = $(e.args.subMenuElement);
+            var pos = el.offset();
+            var a = 'right';
+            var v = 'down';
+            var c = false;
+            if ((pos.left + el.width()) > document.maxWidth) {
+                c = true;
+                a = 'left';
+            }
+            if ((pos.top + el.height()) > document.maxHeight) {
+                c = true;
+                v = 'up';
+            }
+            if (c) {
+                $("#catemenu").jqxMenu('setItemOpenDirection', e.args.id, a, v);
+                $('#catemenu').jqxMenu('closeItem', e.args.id);
+                $('#catemenu').jqxMenu('openItem', e.args.id);
+            }
+        });
+    }, null);
+    dataTable.loadTypePage(-1 + '/_', 1);
+    function reloadPage(type, page, name) {
+        $('#menucur').html(name);
+        $("#StateId").val(type);
+        var q = $("#keyword").val();
+        if (q != '') {
+            q = encodeURIComponent(q);
+        } else {
+            q = '_';
+        }
+        dataTable.loadTypePage(type + "/" + q, page);
+    }
+    function reloadPages() {
+        var q = $("#keyword").val();
+        if (q != '') {
+            q = encodeURIComponent(q);
+        } else {
+            q = '_';
+        }
+        dataTable.loadTypePage($("#StateId").val() + "/" + q, 1);
+    }
+</script>
+$end

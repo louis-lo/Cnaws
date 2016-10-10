@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$Site.Name - 登录设置</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="$Site.Keywords">
+    <meta name="description" content="$Site.Description">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="$res('~/manageres/css/bootstrap.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/font-awesome.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/animate.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/style.min.css')" rel="stylesheet">
+    <link href="$res('~/manageres/css/plugins/toastr/toastr.min.css')" rel="stylesheet">
+    <style>
+        .ibox { margin-bottom: 0; }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content height-begin">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="example-wrap">
+                            <div class="example">
+                                <form class="form-horizontal" id="submitForm" action="$url('system/passport')" method="post" onsubmit="return doSubmit()">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="CookieName">Cookie名：</label>
+                                        <div class="col-sm-8">
+                                            <input id="CookieName" name="CookieName" class="form-control" type="text" value="$Config.CookieName" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="CookieDomain">Cookie作用域：</label>
+                                        <div class="col-sm-8">
+                                            <input id="CookieDomain" name="CookieDomain" class="form-control" type="text" value="$Config.CookieDomain">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="CookieIV">加密密钥1：</label>
+                                        <div class="col-sm-8">
+                                            <input id="CookieIV" name="CookieIV" class="form-control" type="text" value="$Config.CookieIV" required="" minlength="8" maxlength="8">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="CookieKey">加密密钥2：</label>
+                                        <div class="col-sm-8">
+                                            <input id="CookieKey" name="CookieKey" class="form-control" type="text" value="$Config.CookieKey" required="" minlength="24" maxlength="24">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="MaxInvalidPasswordAttempts">尝试登录失败次数：</label>
+                                        <div class="col-sm-8">
+                                            <input id="MaxInvalidPasswordAttempts" name="MaxInvalidPasswordAttempts" class="form-control" type="number" value="$Config.MaxInvalidPasswordAttempts" required="" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="PasswordAnswerAttemptLockoutDuration">登录失败锁定时间间隔：</label>
+                                        <div class="col-sm-8">
+                                            <input id="PasswordAnswerAttemptLockoutDuration" name="PasswordAnswerAttemptLockoutDuration" class="form-control" type="number" value="$Config.PasswordAnswerAttemptLockoutDuration" required="" min="0">
+                                            <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 单位为分钟</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="Level">安全等级：</label>
+                                        <div class="col-sm-8">
+                                            <select id="Level" name="Level" class="form-control">
+                                                <option value="0" $if(Config.Level!!0)selected="selected" $end>低</option>
+                                                <option value="1" $if(Config.Level!!1)selected="selected" $end>中</option>
+                                                <option value="2" $if(Config.Level!!2)selected="selected" $end>高</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="VerifyMail">注册时验证邮箱：</label>
+                                        <div class="col-sm-8">
+                                            <input id="VerifyMail" name="VerifyMail" class="form-control" type="checkbox" value="$Config.VerifyMail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="VerifyMobile">注册时验证手机：</label>
+                                        <div class="col-sm-8">
+                                            <input id="VerifyMobile" name="VerifyMobile" class="form-control" type="checkbox" value="$Config.VerifyMobile">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="RegisterWithCaptcha">注册时启用验证码：</label>
+                                        <div class="col-sm-8">
+                                            <input id="RegisterWithCaptcha" name="RegisterWithCaptcha" class="form-control" type="checkbox" value="$Config.RegisterWithCaptcha">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="DefaultApproved">注册时默认审核通过：</label>
+                                        <div class="col-sm-8">
+                                            <input id="DefaultApproved" name="DefaultApproved" class="form-control" type="checkbox" value="$Config.DefaultApproved">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="LoginWithCaptcha">登陆时启用验证码：</label>
+                                        <div class="col-sm-8">
+                                            <input id="LoginWithCaptcha" name="LoginWithCaptcha" class="form-control" type="checkbox" value="$Config.LoginWithCaptcha">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="DataProvider">数据库：</label>
+                                        <div class="col-sm-8">
+                                            <select id="DataProvider" name="DataProvider" class="form-control">
+                                                $foreach(row in Conns)
+                                                <option value="$row.Name" $if(Config.DataProvider!!row.Name)selected="selected" $end>$row.Name</option>
+                                                $end
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group forum-info">
+                                        <button id="submit" class="btn btn-primary" type="submit">提交</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="$res('~/manageres/js/jquery.min.js')"></script>
+    <script src="$res('~/manageres/js/bootstrap.min.js')"></script>
+    <script src="$res('~/manageres/js/content.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/toastr/toastr.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/jquery.validate.min.js')"></script>
+    <script src="$res('~/manageres/js/plugins/validate/messages_zh.min.js')"></script>
+    <script src="$res('~/manageres/js/cnaws.js')"></script>
+    <script>
+        $().ready(function () {
+            Cnaws.init({
+                urlExt: '$ext',
+                resourcesUrl: '$this.Application.Settings.ResourcesUrl',
+                passportUrl: '$this.Application.Settings.PassportUrl'
+            });
+            $('#submitForm').validate();
+        });
+        function doSubmit() {
+            $('#submit').prop('disabled', true);
+            var form = $('#submitForm');
+            if (form.valid()) {
+                Cnaws.ajax({
+                    method: 'POST',
+                    url: form.attr('action'),
+                    data: '#submitForm',
+                }, function (data) {
+                    if (data.code == -200) {
+                        Cnaws.showSuccess('修改登录设置成功');
+                    }
+                    else {
+                        Cnaws.showError('修改登录设置失败');
+                    }
+                    $('#submit').prop('disabled', false);
+                });
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

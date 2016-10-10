@@ -1,0 +1,199 @@
+﻿<div id="friendlinkcs"></div>
+<div id="friendlinkc" style="display:none;">
+    <div><span>添加产品品牌</span></div>
+    <div>
+        <form id="flform" action="" method="post">
+            <div style="margin-bottom:6px;">
+                <table border="0" cellpadding="0" cellspacing="0" class="table">
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="flname">名称：</label></td>
+                        <td><input id="flname" name="Name" type="text" class="text" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="flurl">地址：</label></td>
+                        <td><input id="flurl" name="Url" type="text" class="text" style="width:500px;" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="flimage">Logo：</label></td>
+                        <td><input id="flimage" name="Image" type="text" class="text" style="width:500px;" /><input id="flview" type="button" value="浏览" class="cancel" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="flsort">排序：</label></td>
+                        <td><div id="flsort"></div></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;padding:10px;">
+                <input type="button" id="ok" value="确定" class="submit" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+                <input name="Approved" type="hidden" value="0" />
+                <div style="display:none"><textarea id="flcontent"></textarea></div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var editor = null;
+    var approved = $Approved;
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return doDelete(' + value + ')">删除</a></div>';
+    };
+    var imagerenderer = function (row, datafield, value) {
+        return '<div class="action"><img src="' + value + '" style="width:16px;height:16px"/></div>';
+    }
+    function reset() {
+        $('#flname').val('');
+        $('#flurl').val('');
+        $('#flimage').val('');
+        $('#flsort').val('');
+    }
+    function showAdd() {
+        reset();
+        $('#friendlinkc').jqxWindow('open');
+    }
+    function doDelete(id) {
+        if (window.confirm('确定要删除该友情链接吗？')) {
+            postAjax('$url("friendlink/del")', 'Id=' + id, function (data, args) {
+                if (showResult(data, '删除友情链接成功', '删除友情链接失败', null)) {
+                    dataTable.reloadPage();
+                }
+            }, null);
+        }
+        return false;
+    }
+    var mainWindow = initWindow('friendlinkc', 'flform', [
+		{ input: '#flname', message: '名称不能为空!', action: 'keyup, blur', rule: 'required' },
+        { input: '#flurl', message: '地址名称不能为空!', action: 'keyup, blur', rule: 'required' }
+    ], null, null, null, function () {
+        if (editor == null) {
+            editor = KindEditor.create('#flcontent', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true
+            });
+            $('#flview').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: $('#flimage').val(),
+                        clickFn: function (url, title) {
+                            $('#flimage').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        }
+    }, function (form) {
+        postAjax('$url("friendlink/add")', form.serialize() + '&SortNum=' + $('#flsort').val(), function (data, args) {
+            if (showResult(data, '添加友情链接成功', '添加友情链接失败')) {
+                dataTable.reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    }, null);
+    $('#flsort').jqxNumberInput({ width: 300, min: 0, inputMode: 'simple', spinButtons: true, decimalDigits: 0 });
+    var dataTable = initDataTable('friendlinkcs', '$url("friendlink/list/")', [
+        { name: 'Id', type: 'int' },
+        { name: 'Name', type: 'string' },
+        { name: 'Url', type: 'string' },
+        { name: 'Image', type: 'string' },
+        { name: 'SortNum', type: 'int' },
+        { name: 'Approved', type: 'bool' }
+    ], [
+			{
+			    text: '名称', datafield: 'Name', width: '20%', columntype: 'textbox', cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+			        if (newvalue == '') {
+			            return oldvalue;
+			        }
+			    }
+			},
+            {
+                text: '地址', datafield: 'Url', width: '20%', columntype: 'textbox', cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+                    if (newvalue == '') {
+                        return oldvalue;
+                    }
+                }
+            },
+			{
+			    text: 'Logo', datafield: 'Image', width: '20%', cellsrenderer: imagerenderer, createeditor: function (row, cellvalue, editor_, cellText, width, height) {
+			        editor_.jqxInput({ height: height, width: width, value: cellvalue });
+			        if (editor == null) {
+			            editor = KindEditor.create('#flcontent', {
+			                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+			                uploadJson: '$filesystem("upload")',
+			                fileManagerJson: '$filesystem("filemanager")',
+			                allowFileManager: true
+			            });
+			        }
+			    },
+			    initeditor: function (row, cellvalue, editor_, celltext, pressedkey) {
+			        editor.loadPlugin('image', function () {
+			            editor.plugin.imageDialog({
+			                imageUrl: cellvalue,
+			                clickFn: function (url, title) {
+			                    editor_.val(url);
+			                    editor.hideDialog();
+			                }
+			            });
+			        });
+			    },
+			    geteditorvalue: function (row, cellvalue, editor_) {
+			        return editor_.val();
+			    }
+			},
+			{
+			    text: '排序', datafield: 'SortNum', width: '15%', columntype: 'numberinput', validation: function (cell, value) {
+			        if (value < 0) {
+			            return { result: false, message: "值必须大于或等于0" };
+			        }
+			        return true;
+			    }
+			},
+            { text: '审核', datafield: 'Approved', width: '15%', columntype: 'checkbox' },
+			{ text: '操作', datafield: 'Id', minwidth: '10%', editable: false, cellsrenderer: actionrenderer }
+    ], function (toolbar) {
+        toolbar.empty();
+        var btn1, btn2;
+        var container = $('<div style="margin:5px 5px 5px 0;float:left;"></div>');
+        $if(Approved == 1)
+        btn1 = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px;background:#fff;border-color:#fff;' value='已审核' />");
+        btn2 = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px;margin-left:10px;' value='待审核' />");
+        $else
+        btn1 = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px;' value='已审核' />");
+        btn2 = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px;background:#fff;border-color:#fff;margin-left:10px;' value='待审核' />");
+        $end
+        var btn3 = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height:23px;float:left;width:80px;margin-left:10px;' value='添加' />");
+        toolbar.append(container);
+        container.append(btn1);
+        container.append(btn2);
+        container.append(btn3);
+        $if(Approved == 1)
+        btn2.on('click', function (event) {
+            loadUrl(getUrl('/management/friendlink/index/0'));
+            return false;
+        });
+        $else
+        btn1.on('click', function (event) {
+            loadUrl(getUrl('/management/friendlink/index/1'));
+            return false;
+        });
+        $end
+        btn3.on('click', function (event) {
+            showAdd();
+            return false;
+        });
+    }, function (rowid, rowdata, commit) {
+        postAjax('$url("friendlink/mod")', 'Id=' + rowdata.Id + '&Name=' + encodeURIComponent(rowdata.Name) + '&Url=' + encodeURIComponent(rowdata.Url) + '&Image=' + encodeURIComponent(rowdata.Image) + '&SortNum=' + rowdata.SortNum + '&Approved=' + rowdata.Approved, function (data, args) {
+            if (showResult(data, '修改友情链接成功', '修改友情链接失败')) {
+                args(true);
+                dataTable.reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadTypePage(approved, 1);
+</script>

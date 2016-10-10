@@ -1,0 +1,380 @@
+﻿<script type="text/javascript" src="$url('oneproduct/allcategory')"></script>
+<div id="products"></div>
+<div id="product" style="display:none;">
+    <div><span id="righttitle">添加商品</span></div>
+    <div>
+        <form id="aform" action="" method="post">
+            <div style="margin-bottom:6px;">
+                <table border="0" cellpadding="0" cellspacing="0" class="table">
+                    <tr>
+                        <td align="right" style="width:88px;"><label for="atitle">标题：</label></td>
+                        <td><input id="atitle" name="Title" type="text" class="text" style="width:680px;float:left;" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="acategory">分类：</label><input id="hcategory" name="CategoryId" type="hidden" value="0" /></td>
+                        <td id="acategory"></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="aimage">图片：</label></td>
+                        <td>
+                            <ul id="images">
+                                <li id="upload-img"><a href="javascript:void(0)" onclick="uploadImage()"><img src="$res('/management/static/images/upload_img.png')" alt="添加图片" /></a></li>
+                            </ul>
+                            <input id="aimage" name="Image" type="hidden" class="text" style="width:500px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="adescription">摘要：</label></td>
+                        <td><textarea id="adescription" name="Description" class="text" style="width:680px;height:50px;"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="acontent">内容：</label></td>
+                        <td><textarea id="acontent" style="width:680px;height:190px;visibility:hidden;display:block;"></textarea><input type="hidden" id="HContent" name="Content" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="akeywords">关键字：</label></td>
+                        <td><input id="akeywords" name="Keywords" type="text" class="text" style="width:680px;" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="acount">份数：</label></td>
+                        <td><input id="acount" name="Count" type="text" class="text" style="width:680px;" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;padding:10px;">
+                <input id="aid" name="Id" type="hidden" value="0" />
+                <input type="button" id="ok" value="确定" class="submit" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var editor = null;
+    var categories = null;
+    var imgel = null;
+    var imagerenderer = function (row, column, value) {
+        var img = '';
+        var imgs = value.split('|');
+        if (imgs.length > 0)
+            img = imgs[0];
+        return '<div class="action"><img src="' + img + '" style="width:16px;height:16px"/></div>';
+    };
+    var categoryrenderer = function (row, column, value) {
+        var html = '<div class="action">';
+        if (value == 0) {
+            html += '根分类';
+        }
+        else {
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                if (allCategory.data[i].Id == value) {
+                    html += allCategory.data[i].Name;
+                    break;
+                }
+            }
+        }
+        html += '</div>';
+        return html;
+    }
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return showEdit(' + value + ')">编辑</a></div>';
+    }
+    function reset() {
+        $('#acategory').empty();
+        $('#images li').each(function (index, value) {
+            if ($(value).attr('id') != 'upload-img') {
+                $(value).remove();
+            }
+        });
+        categories = new Array();
+    }
+    function showAdd() {
+        $('#righttitle').text('添加商品');
+        reset();
+        $('#aid').val('0');
+        $('#product').jqxWindow('open');
+    }
+    function showEdit(id) {
+        $('#righttitle').text('编辑商品');
+        reset();
+        $('#aid').val(id);
+        $('#product').jqxWindow('open');
+    }
+    function formatImage() {
+        var val = '';
+        $('.up-img').each(function (index, value) {
+            if (index > 0)
+                val += '|';
+            val += $(value).attr('src');
+        });
+        $('#aimage').val(encodeURIComponent(val));
+    }
+    function initImages(imgs) {
+        var arr = imgs.split('|');
+        $(arr).each(function (index, value) {
+            $('#upload-img').before($('<li><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + value + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+        });
+        formatImage();
+    }
+    function deleteImage(el) {
+        $(el).parent().remove();
+        formatImage();
+    }
+    function uploadImage() {
+        if (arguments.length > 0) {
+            imgel = $(arguments[0]).find('img').first();
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    imageUrl: imgel.attr('src'),
+                    clickFn: function (url, title) {
+                        imgel.attr('src', url);
+                        editor.hideDialog();
+                        formatImage();
+                    }
+                });
+            });
+        }
+        else {
+            editor.loadPlugin('image', function () {
+                editor.plugin.imageDialog({
+                    imageUrl: '',
+                    clickFn: function (url, title) {
+                        $('#upload-img').before($('<li><a href="javascript:void(0)" onclick="uploadImage(this)"><img class="up-img" src="' + url + '"></a><a class="del-img" href="javascript:void(0)" onclick="deleteImage(this)">X</a></li>'));
+                        editor.hideDialog();
+                        formatImage();
+                    }
+                });
+            });
+        }
+    }
+    function doCategory(el, pre, id, must, def) {
+        $('#hcategory').val(id);
+        while (categories.length > 0) {
+            if (categories[categories.length - 1] != pre) {
+                $('#acategory_' + categories[categories.length - 1]).remove();
+                categories.pop();
+            }
+            else {
+                break;
+            }
+        }
+        if (id > 0 || must) {
+            getAjax(getUrl('$url("oneproduct/categories/")' + id), function (data, args) {
+                if (data.code == -200) {
+                    if (data.data.length > 0) {
+                        var html = '<select id="acategory_' + args.id + '" onchange="doCategory(\'' + args.el + '\',' + args.id + ',this.options[this.options.selectedIndex].value,false,0)"><option value="0">请选择分类</option>';
+                        for (var i = 0; i < data.data.length; ++i) {
+                            html += '<option value="' + data.data[i].Id + '"' + (data.data[i].Id == args.def ? ' selected="selected"' : '') + '>' + data.data[i].Name + '</option>';
+                        }
+                        html += '</select>';
+                        $('#' + args.el).append($(html));
+                        categories.push(args.id);
+                    }
+                }
+            }, { el: el, id: id, def: def });
+        }
+    }
+    function validate(form, aid) {
+        $('#aform').jqxValidator('hide');
+        $('#acontent').val(editor.html());
+        $('#HContent').val(encodeURIComponent(editor.html()));
+        $('#aform').jqxValidator({
+            rules: [
+                { input: '#atitle', message: '商品标题不能为空!', action: 'keyup, blur', rule: 'required' },
+                {
+                    input: '#acategory_' + categories[categories.length - 1], message: '请选择商品分类!', action: 'keyup, blur', rule: function (input, commit) {
+                        var value = $('#hcategory');
+                        if (parseInt(value.val()) > 0 && parseInt(input.val()) > 0) {
+                            return true;
+                        }
+                        return false;
+                    }
+                },
+                {
+                    input: '.ke-edit-iframe', message: '商品内容不能为空!', action: 'keyup, blur', rule: function (input, commit) {
+                        if ($('#acontent').val() != '') {
+                            return true;
+                        }
+                        return false;
+                    }
+                },
+                {
+                    input: '#acount', message: '商品份数必须大于等于100且小于10000000!', action: 'keyup, blur', rule: function (input, commit) {
+                        try {
+                            var value = parseInt($('#acount').val());
+                            return value >= 100 && value < 10000000;
+                        }
+                        catch (e) { }
+                        return false;
+                    }
+                }
+            ]
+        });
+        return form.jqxValidator('validate');
+    }
+    var mainWindow = initWindow('product', 'aform', null, 'aid', validate, null, function () {
+        if (editor == null) {
+            editor = KindEditor.create('#acontent', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true
+            });
+        }
+        var aid = $('#aid').val();
+        if (aid == '0') {
+            $('#atitle').val('');
+            $('#hcategory').val('0');
+            $('#aimage').val('');
+            $('#adescription').val('');
+            editor.html('');
+            $('#akeywords').val('');
+            $('#acount').val('');
+            doCategory('acategory', 0, 0, true, 0);
+        }
+        else {
+            getAjax(getUrl('$url("oneproduct/get/")' + aid), function (data, args) {
+                if (data.code == -200) {
+                    $('#atitle').val(data.data.Title);
+                    initImages(data.data.Image);
+                    $('#adescription').val(data.data.Description);
+                    editor.html(data.data.Content);
+                    $('#akeywords').val(data.data.Keywords);
+                    $('#acount').val(data.data.Count);
+                    getAjax(getUrl('$url("oneproduct/parents/")' + data.data.CategoryId), function (data, args) {
+                        if (data.code == -200) {
+                            var id;
+                            var pid = 0;
+                            for (var i = 0; i < data.data.length; ++i) {
+                                id = data.data[i];
+                                doCategory('acategory', pid, pid, pid == 0, id);
+                                pid = id;
+                            }
+                        }
+                        $('#hcategory').val(args);
+                    }, data.data.CategoryId);
+                }
+            }, null);
+        }
+    }, function (form) {
+        postAjax('$url("oneproduct/add")', form.serialize(), function (data, args) {
+            if (showResult(data, '添加商品成功', '添加商品失败', function (code) {
+                    if (code == -1) {
+                        return { type: 'error', message: '选择的分类还有子分类' };
+            }
+                    return null;
+            })) {
+                dataTable.reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    }, function (form) {
+        postAjax('$url("oneproduct/mod")', form.serialize(), function (data, args) {
+            if (showResult(data, '修改商品成功', '修改商品失败', function (code) {
+                    if (code == -1) {
+                        return { type: 'error', message: '选择的分类还有子分类' };
+            }
+                    return null;
+            })) {
+                dataTable.reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    });
+    var dataTable = initDataTable('products', '$url("oneproduct/list/")', [
+		{ name: 'Id', type: 'int' },
+		{ name: 'Title', type: 'string' },
+        { name: 'Image', type: 'string' },
+		{ name: 'CategoryId', type: 'int' },
+        { name: 'Count', type: 'int' },
+		{ name: 'Approved', type: 'bool' }
+    ], [
+		{ text: '标题', datafield: 'Title', width: '25%', columntype: 'textbox', editable: false },
+        { text: '图片', datafield: 'Image', width: '15%', cellsrenderer: imagerenderer, editable: false },
+		{ text: '分类', datafield: 'CategoryId', width: '20%', cellsrenderer: categoryrenderer, editable: false },
+        { text: '份数', datafield: 'Count', width: '10%', columntype: 'textbox', editable: false },
+        { text: '审核', datafield: 'Approved', width: '10%', columntype: 'checkbox' },
+		{ text: '操作', datafield: 'Id', minwidth: '20%', cellsrenderer: actionrenderer, editable: false }
+    ], function (toolbar) {
+        toolbar.empty();
+        toolbar.append($('<div style="margin:5px 0 5px 5px;float:left;display:inline;height:22px;line-height:22px;">当前分类：</div><div id="menucur" style="margin:5px 5px 5px 0;float:left;display:inline;height:22px;line-height:22px;">所有商品</div>'));
+        toolbar.append($('<div id="catemenu" style="margin-top:1px;float:left;display:inline;"><ul><li>选择分类<ul id="menuitem_0"><li onclick="reloadPage(0,1,\'所有商品\')">所有商品</li><li>快速查询<ul><li onclick="reloadPage(-1,1,\'待审核商品\')">待审核商品</li><li onclick="reloadPage(-2,1,\'已审核商品\')">已审核商品</li></ul></li></ul></li></ul></div>'));
+        
+        var all;
+        var max = 1;
+        var tmp = new Array();
+        var temp = new Array();
+        var cate, id, pid, mid, name;
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            tmp[allCategory.data[i].Id] = true;
+        }
+        for (var i = 0; i < allCategory.data.length; ++i) {
+            cate = allCategory.data[i];
+            pid = cate.ParentId;
+            if (pid == 0) {
+                id = cate.Id;
+                name = cate.Name;
+                tmp[id] = false;
+                temp[id] = 1;
+                $('#menuitem_' + pid).append($('<li onclick="reloadPage(' + id + ',1,\'' + name + '\')">' + name + '<ul id="menuitem_' + id + '"></ul>' + '</li>'));
+            }
+        }
+        while (true) {
+            all = true;
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                cate = allCategory.data[i];
+                pid = cate.ParentId;
+                id = cate.Id;
+                if (pid > 0 && !tmp[pid] && tmp[id]) {
+                    mid = temp[pid];
+                    max = Math.max(max, mid + 1);
+                    tmp[id] = false;
+                    temp[id] = mid + 1;
+                }
+                if (tmp[id]) {
+                    all = false;
+                }
+            }
+            if (all) {
+                break;
+            }
+        }
+        for (var j = 2; j <= max; ++j) {
+            for (var i = 0; i < allCategory.data.length; ++i) {
+                cate = allCategory.data[i];
+                id = cate.Id;
+                if (temp[id] == j) {
+                    name = cate.Name;
+                    $('#menuitem_' + cate.ParentId).append($('<li onclick="reloadPage(' + id + ',1,\'' + name + '\')">' + name + (j != max ? '<ul id="menuitem_' + id + '"></ul>' : '') + '</li>'));
+                }
+            }
+        }
+
+        var container = $("<div style='margin:5px;float:left;display:inline;'></div>");
+        var input = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height: 23px; float: left; width: 80px;' value='添加' />");
+        toolbar.append(container);
+        container.append(input);
+        $('#catemenu').jqxMenu({ height: 27, width: 70, mode: 'horizontal' });
+        input.on('click', function (event) {
+            showAdd();
+            return false;
+        });
+    }, function (rowid, rowdata, commit) {
+        postAjax('$url("oneproduct/update")', 'Id=' + rowdata.Id + '&Approved=' + rowdata.Approved, function (data, args) {
+            if (data.code == -200) {
+                args(true);
+                dataTable.reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadTypePage(0, 1);
+    function reloadPage(type, page, name) {
+        $('#menucur').html(name);
+        dataTable.loadTypePage(type, page);
+    }
+</script>

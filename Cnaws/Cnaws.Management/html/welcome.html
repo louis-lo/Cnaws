@@ -1,0 +1,84 @@
+﻿<div class="welinfo">
+    <span><img src="$res('static/images/dp.png')" /></span>
+    <b>$this.User.Identity.Name，欢迎使用AWS系统</b>
+    <a href="javascript:void(0)" onclick="loadUrl('$url('admin/admin')')">帐号设置</a>
+</div>
+<div class="welinfo">
+    <span><img src="$res('static/images/time.png')" /></span>
+    <i>您上次登录的时间：$this.User.Identity.LastTime.ToString()</i> <i>您上次登录的地址：$LoginArea</i> （不是您登录的？<a target="_top" href="$url('logout')">请点这里</a>）
+</div>
+<div class="xline"></div>
+<div class="box"></div>
+<div class="welinfo">
+    <span><img src="$res('static/images/t02.png')" /></span>
+    <b>当前版本</b>
+</div>
+<ul class="umlist clear">$Version</ul>
+<div class="ibox"><a class="ibtn" href="javascript:void(0)" onclick="$('#upgrade').jqxWindow('open');">检查更新</a></div>
+<div class="xline"></div>
+<ul id="quickmenus" class="iconlist"></ul>
+<!--<div class="ibox"><a class="ibtn"><img src="$res('static/images/iadd.png')" />添加新的快捷功能</a></div>-->
+<!--<div class="xline"></div>
+<div class="box"></div>
+<div class="welinfo">
+    <span><img src="$res('static/images/sun.png')" alt="提醒" /></span>
+    <b>i托管独立网站使用指南</b>
+</div>
+<ul class="infolist">
+    <li><span>您可以快速进行文章发布管理操作</span><a class="ibtn" href="javascript:void(0)">发布或管理文章</a></li>
+    <li><span>您可以快速发布产品</span><a class="ibtn" href="javascript:void(0)">发布或管理产品</a></li>
+    <li><span>您可以进行密码修改、账户设置等操作</span><a class="ibtn" href="javascript:void(0)">账户管理</a></li>
+</ul>
+<div class="xline"></div>
+<div class="uimakerinfo"><b>查看AWS系统使用指南，您可以了解到多种风格的B/S后台管理界面,软件界面设计，图标设计，手机界面等相关信息</b>(<a href="http://www.cnaws.com" target="_blank">www.cnaws.com</a>)</div>
+<ul class="umlist">
+    <li><a href="javascript:void(0)">如何发布文章</a></li>
+    <li><a href="javascript:void(0)">如何访问网站</a></li>
+    <li><a href="javascript:void(0)">如何管理广告</a></li>
+    <li><a href="javascript:void(0)">后台用户设置(权限)</a></li>
+    <li><a href="javascript:void(0)">系统设置</a></li>
+</ul>-->
+<div id="upgrade" style="display:none">
+    <div><span>检查更新</span></div>
+    <div>
+        <ul class="infolist" style="padding-left:10px;padding-right:10px">$Version</ul>
+        <div style="float:right;padding:10px;">
+            <input type="button" id="uook" value="立即升级" onclick="alert('当前版本不支持在线升级\r\n请转到http://upgrade.cnaws.com/help.html查看详情')" class="submit" />
+            <input type="button" id="upcancel" value="取消" class="cancel" />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //var quick = $('#quickmenus');
+    //quick.empty();
+    //for (var i = 0; i < QUICKMENUS.length; ++i) {
+    //    quick.append($('<li><a href="javascript:void(0)" onclick="loadUrl(formatUrl(\'' + QUICKMENUS[i].url + '\'))"><img src="' + QUICKMENUS[i].icon + '" /><p>' + QUICKMENUS[i].name + '</p></a></li>'));
+    //}
+    //$('#upgrade').jqxWindow({
+    //    height:'auto',
+    //    width:500,
+    //    autoOpen:false,
+    //    resizable:false,
+    //    draggable:false,
+    //    isModal:true,
+    //    modalOpacity:0.3,
+    //    cancelButton:$('#upcancel'),
+    //    initContent: function () {
+    //        $('#uook').hide();
+    //        $('#upgrade li i.up').html('检查中...');
+    //        getAjax('$url("upgrade")', function(data) {
+    //            if (data.code == -200) {
+    //                $('#upgrade li').each(function () {
+    //                    $(this).children('i.up').html(data.data[$(this).children('i.dll').html()]);
+    //                });
+    //                $('#uook').show();
+    //            }
+    //            else {
+    //                $('#upgrade li').each(function () {
+    //                    $(this).children('i.up').html($(this).children('i.ver').html());
+    //                });
+    //            }
+    //        }, null);
+    //    }
+    //});
+</script>

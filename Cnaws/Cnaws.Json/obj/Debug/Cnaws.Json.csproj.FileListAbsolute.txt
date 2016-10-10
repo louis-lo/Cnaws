@@ -1,0 +1,14 @@
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.Json.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.Json.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\obj\Debug\Cnaws.Json.csprojResolveAssemblyReference.cache
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\obj\Debug\Cnaws.Json.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Json\obj\Debug\Cnaws.Json.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.Json.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.Json.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Json\bin\Debug\Cnaws.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Json\obj\Debug\Cnaws.Json.csprojResolveAssemblyReference.cache
+E:\Project\Cnaws\Cnaws\Cnaws.Json\obj\Debug\Cnaws.Json.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Json\obj\Debug\Cnaws.Json.pdb

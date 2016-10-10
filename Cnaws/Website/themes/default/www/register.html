@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>注册-$Site.Name</title>
+    <meta name="keywords" content="$Site.Keywords" />
+    <meta name="description" content="$Site.Description" />
+    <link rel="shortcut icon" href="$res('/favicon.ico')" />
+    <link rel="stylesheet" type="text/css" href="$res('/resource/static/jqwidgets/styles/jqx.base.css')" />
+    <link rel="stylesheet" href="$res('css/style.css')" />
+    <link rel="stylesheet" href="$res('css/reg.css')" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+    if(1){
+    var html5 = "abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(','),i = html5.length;
+    while(i--) document.createElement(html5[i]);
+    }
+    </script>
+    <![endif]-->
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcore.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxinput.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxbuttons.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxcheckbox.js')"></script>
+    <script type="text/javascript" src="$res('/resource/static/jqwidgets/jqxvalidator.js')"></script>
+    <script type="text/javascript" src="$res('js/comm.js')"></script>
+    <script type="text/javascript">
+        $if(Config.VerifyMobile)
+        var SMSTime = 0;
+        var SMSHandle = null;
+        function waitSMS() {
+            var btn = $('#smsbtn');
+            if (SMSTime <= 0) {
+                window.clearInterval(SMSHandle);
+                SMSHandle = null;
+                btn.val('获取短信验证码');
+                btn.jqxButton('disabled', false);
+            }
+            else {
+                btn.val(SMSTime + '秒后重新获取');
+                --SMSTime;
+            }
+        }
+        function sendSMS() {
+            var btn = $('#smsbtn');
+            btn.jqxButton('disabled', true);
+            SMSTime = 120;
+            waitSMS();
+            SMSHandle = window.setInterval(waitSMS, 1000);
+            return false;
+        } $end
+        function showAgreement(e) {
+            return false;
+        }
+        function doRegister() {
+            $('#regbtn').attr('disabled', true);
+            $('.loginErr').hide();
+            var form = $('#form1');
+            if (form.jqxValidator('validate')) {
+                if ($('#agreement').val()) {
+                    postAjax(form.attr('action'), form.serialize(), function (data, args) {
+                        var ret = formatResult(data, '注册失败，请重试', function (code) {
+
+                        });
+                        if (ret === true) {
+                            top.location.href = '$target';
+                        }
+                        else {
+                            $('#RegErrInfo').html(ret);
+                            $('.loginErr').show();
+                        }
+                        $('#regbtn').attr('disabled', false);
+                    }, null);
+                }
+                else {
+                    $('#RegErrInfo').html('请接受服务条款');
+                    $('.loginErr').show();
+                    $('#regbtn').attr('disabled', false);
+                }
+            }
+            else {
+                $('#regbtn').attr('disabled', false);
+            }
+            return false;
+        }
+        $(document).ready(function () {
+            $("#username").jqxInput({ minLength: 1 });
+            $("#password").jqxInput({ minLength: 6, maxLength: 32 });
+            $("#repassword").jqxInput({ minLength: 6, maxLength: 32 });
+            $('#agreement').jqxCheckBox({ checked: true, enableContainerClick: false });
+            $("#mobile").jqxInput({ minLength: 11, maxLength: 11 });
+            $if(Config.VerifyMobile)
+            $("#smsbtn").jqxButton();
+            $("#smscaptcha").jqxInput({ minLength: 6, maxLength: 6 }); $else
+            $if(Config.RegisterWithCaptcha)
+            $("#captcha").jqxInput({ minLength: 4, maxLength: 4 });
+            $('#captcha_img').click(function () {
+                this.src = '$url("/captcha/custom/login/18/32")?' + parseInt(Math.random() * 10000);
+            });
+            $('#captcha_img').click(); $end
+            $end
+            var rules = new Array();
+            rules.push({ input: '#username', message: '邮箱地址不能为空', action: 'keyup, blur', rule: 'required' });
+            rules.push({ input: '#username', message: '邮箱地址格式错误', action: 'keyup, blur', rule: 'email' });
+            rules.push({
+                input: '#username', message: '该邮箱地址已存在', action: 'blur', rule: function (input, commit) {
+                    if (input.val().length > 0 && /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(input.val())) {
+                        var data = $.ajax({
+                            type: 'POST',
+                            url: '$url("/register/checkemail")',
+                            data: 'email=' + encodeURIComponent(input.val()),
+                            dataType: 'json',
+                            async: false
+                        }).responseJSON;
+                        return formatResult(data, '', null) === true;
+                    }
+                    return false;
+                }
+            });
+            rules.push({ input: '#password', message: '密码不能为空', action: 'keyup, blur', rule: 'required' });
+            rules.push({ input: '#password', message: '密码长度必须为6～32位', action: 'keyup, blur', rule: 'length=6,32' });
+            rules.push({
+                input: '#repassword', message: '两次密码不一致', action: 'keyup, blur', rule: function (input, commit) {
+                    if (input.val() === $('#password').val()) {
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            rules.push({ input: '#mobile', message: '手机号码不能为空', action: 'keyup, blur', rule: 'required' });
+            rules.push({
+                input: '#mobile', message: '手机号码格式错误', action: 'keyup, blur', rule: function (input, commit) {
+                    if (/^(1[3-8]{1}[\d]{9})$/.test(input.val())) {
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            rules.push({
+                input: '#mobile', message: '该手机号码已存在', action: 'blur', rule: function (input, commit) {
+                    if (input.val().length > 0 && /^(1[3-8]{1}[\d]{9})$/.test(input.val())) {
+                        var data = $.ajax({
+                            type: 'POST',
+                            url: '$url("/register/checkmobile")',
+                            data: 'mobile=' + encodeURIComponent(input.val()),
+                            dataType: 'json',
+                            async: false
+                        }).responseJSON;
+                        return formatResult(data, '', null) === true;
+                    }
+                    return false;
+                }
+            });
+            $if(Config.VerifyMobile)
+            rules.push({ input: '#smscaptcha', message: '短信验证码不能为空', action: 'keyup, blur', rule: 'required' });
+            rules.push({ input: '#smscaptcha', message: '短信验证码错误', action: 'keyup, blur', rule: 'length=6,6' });
+            $else
+            $if(Config.RegisterWithCaptcha)
+            rules.push({ input: '#captcha', message: '验证码不能为空', action: 'keyup, blur', rule: 'required' });
+            rules.push({ input: '#captcha', message: '验证码错误', action: 'keyup, blur', rule: 'length=4,4' });
+            $end
+            $end
+            $('#form1').jqxValidator({ hintType: 'label', rules: rules });
+        });
+    </script>
+</head>
+<body>
+$load("include/header2.html")
+<div class="m-regBody clearfix">
+    <div class="m-regWrap">
+        <form id="form1" method="post" autocomplete="off" action="$url('/register/reg')" onsubmit="return doRegister()">
+            <div class="regForm">
+                <h2 class="clearfix">
+                    <span class="tit">注册$Site.Name帐号</span>
+                    <a href="$url('/login')?target=$target">登录</a>
+                    <span>我已经注册，现在就</span>
+                </h2>
+                <div class="m-regRight"></div>
+                <ul class="formList">
+                    <li>
+                        <label for="username">电子邮箱：</label>
+                        <div id="useremail_box" class="import">
+                            <span class="icon"></span>
+                            <input type="text" autocomplete="off" name="username" id="username" />
+                        </div>
+                    </li>
+                    <li>
+                        <label for="password">登录密码：</label>
+                        <div id="password_box" class="import">
+                            <span class="icon"></span>
+                            <input type="password" autocomplete="off" name="password" id="password" />
+                        </div>
+                    </li>
+                    <li>
+                        <label for="repassword">确认密码：</label>
+                        <div id="repassword_box" class="import">
+                            <span class="icon"></span>
+                            <input type="password" autocomplete="off" name="repassword" id="repassword" />
+                        </div>
+                    </li>
+                    <li>
+                        <label for="mobile">手机号码：</label>
+                        <div id="mobile_box" class="import mobile">
+                            <span class="icon"></span>
+                            <input type="text" autocomplete="off" name="mobile" id="mobile" />
+                        </div>
+                    </li>$if(Config.VerifyMobile)
+                    <li>
+                        <label for="smscaptcha">短信验证码：</label>
+                        <input id="smsbtn" type="button" onclick="return sendSMS()" value="获取短信验证码" />
+                        <div id="smscaptcha_box" class="import captcha">
+                            <span class="icon"></span>
+                            <input type="text" autocomplete="off" name="smscaptcha" id="smscaptcha" />
+                        </div>
+                    </li>$else $if(Config.RegisterWithCaptcha)
+                    <li>
+                        <label for="captcha">验证码：</label>
+                        <img id="captcha_img" />
+                        <div id="captcha_box" class="import captcha">
+                            <span class="icon"></span>
+                            <input type="text" autocomplete="off" name="captcha" id="captcha" />
+                        </div>
+                    </li>$end $end
+                    <li class="auto clearfix">
+                        <div id="agreement" class="agreement">我已阅读并同意<a href="javascript:void(0)" onclick="return showAgreement()">《$Site.Name用户注册协议》</a></div>
+                    </li>
+                    <li class="loginErr" style="display:none">
+                        <em class="erricon"></em><em class="err" id="RegErrInfo">errortext</em>
+                    </li>
+                    <li>
+                        <em>
+                            <input type="submit" value="注册" class="regBtn" id="regbtn" />
+                        </em>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+$load("include/footer2.html")
+</body>
+</html>

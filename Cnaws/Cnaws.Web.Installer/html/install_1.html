@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>Cnaws 网站系统安装</title>
+    <link rel="icon" href="$res('/icon.png')" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="$res('static/styles/install.css')" />
+    <script type="text/javascript" src="$res('/resource/static/scripts/jquery-1.11.1.min.js')"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#accept").click(function () {
+                if (this.checked) {
+                    $("#next").removeAttr("disabled");
+                    $("#message").hide();
+                }
+                else {
+                    $("#next").attr("disabled", "disabled");
+                    $("#message").show();
+                }
+            });
+        });
+        function goNext() {
+            $('#form1').submit();
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="side s_clear">
+        <div class="side_bar">
+            <h1>$Version</h1>
+            <ul>
+                <li class="currentitem">欢迎</li>
+                <li>环境检测</li>
+                <li>站点设置信息</li>
+                <li>选择功能模块</li>
+                <li>安装</li>
+            </ul>
+            <div class="copy">CNAWS.COM</div>
+        </div>
+    </div>
+    <div class="main s_clear">
+        <div class="content first">
+            <h1>欢迎</h1>
+            <div class="inner">
+                <h2>Cnaws 网站系统使用协议</h2>
+                <strong>版权所有 &copy; $now.Year, CNAWS.COM, 保留所有权利</strong>。
+                <br>
+                <h2>附：</h2>CNAWS.COM 网址：<a href="http://www.cnaws.com" target="_blank">http://www.cnaws.com</a><br>
+            </div>
+        </div>
+        <div class="btn_box">
+            <label for="accept"><input type="checkbox" name="accept" id="accept" />接受</label>
+            <button type="button" name="next" id="next" disabled="disabled" onclick="return goNext()">下一步</button>
+        </div>
+        <div id="message">选择接受，进行下一步 </div>
+    </div>
+</div>
+<form id="form1" action="$url('/install')" method="post">
+    <input name="Step" type="hidden" value="2" />
+</form>
+</body>
+</html>

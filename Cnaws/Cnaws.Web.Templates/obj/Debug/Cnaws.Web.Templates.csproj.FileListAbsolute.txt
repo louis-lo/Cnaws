@@ -1,0 +1,10 @@
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Web.Templates\bin\Debug\Cnaws.Web.Templates.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Web.Templates\bin\Debug\Cnaws.Web.Templates.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Web.Templates\obj\Debug\Cnaws.Web.Templates.dll
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Web.Templates\obj\Debug\Cnaws.Web.Templates.pdb
+E:\马驰骋\Cnaws\Cnaws\Cnaws.Web.Templates\obj\Debug\Cnaws.Web.Templates.csprojResolveAssemblyReference.cache
+E:\Project\Cnaws\Cnaws\Cnaws.Web.Templates\bin\Debug\Cnaws.Web.Templates.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Web.Templates\bin\Debug\Cnaws.Web.Templates.pdb
+E:\Project\Cnaws\Cnaws\Cnaws.Web.Templates\obj\Debug\Cnaws.Web.Templates.csprojResolveAssemblyReference.cache
+E:\Project\Cnaws\Cnaws\Cnaws.Web.Templates\obj\Debug\Cnaws.Web.Templates.dll
+E:\Project\Cnaws\Cnaws\Cnaws.Web.Templates\obj\Debug\Cnaws.Web.Templates.pdb

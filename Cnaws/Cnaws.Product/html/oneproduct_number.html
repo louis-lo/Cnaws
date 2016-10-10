@@ -1,0 +1,66 @@
+﻿<div id="products"></div>
+<script type="text/javascript">
+    var categories = null;
+    var states = { 'Normal': '进行中', 'Delivery': '待发货', 'Receipt': '待收货', 'Finished': '已完成' };
+    var imagerenderer = function (row, column, value) {
+        var img = '';
+        var imgs = value.split('|');
+        if (imgs.length > 0)
+            img = imgs[0];
+        return '<div class="action"><img src="' + img + '" style="width:16px;height:16px"/></div>';
+    };
+    var staterenderer = function (row, column, value) {
+        return '<div class="action">' + states[value] + '</div>';
+    };
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return onDelivery(' + value + ')">发货</a></div>';
+    }
+    var dataTable = initDataTable('products', '$url("oneproduct/numberlist/")', [
+		{ name: 'a_Id', type: 'int' },
+		{ name: 'b_Title', type: 'string' },
+        { name: 'b_Image', type: 'string' },
+        { name: 'a_State', type: 'int' },
+		{ name: 'a_LuckNum', type: 'int' },
+		{ name: 'a_Address', type: 'string' }
+    ], [
+        { text: '标题', datafield: 'b_Title', width: '15%', columntype: 'textbox', editable: false },
+        { text: '图片', datafield: 'b_Image', width: '10%', cellsrenderer: imagerenderer, editable: false },
+        { text: '状态', datafield: 'a_State', width: '5%', cellsrenderer: staterenderer, editable: false },
+		{ text: '中奖号码', datafield: 'a_LuckNum', width: '10%', columntype: 'textbox', editable: false },
+		{ text: '收货地址', datafield: 'a_Address', width: '50%', columntype: 'textbox', editable: false },
+		{ text: '操作', datafield: 'a_Id', minwidth: '10%', cellsrenderer: actionrenderer, editable: false }
+    ], function (toolbar) {
+        toolbar.empty();
+        toolbar.append($('<div style="margin:5px 0 5px 5px;float:left;display:inline;height:22px;line-height:22px;">当前分类：</div><div id="menucur" style="margin:5px 5px 5px 0;float:left;display:inline;height:22px;line-height:22px;">所有抢购</div>'));
+        toolbar.append($('<div id="catemenu" style="margin-top:1px;float:left;display:inline;"><ul><li>选择分类<ul id="menuitem_0"><li onclick="reloadPage(-1,1,\'所有抢购\')">所有抢购</li><li onclick="reloadPage(0,1,\'进行中的抢购\')">进行中的抢购</li><li onclick="reloadPage(1,1,\'待发货的抢购\')">待发货的抢购</li><li onclick="reloadPage(2,1,\'待收货的抢购\')">待收货的抢购</li><li onclick="reloadPage(3,1,\'已完成的抢购\')">已完成的抢购</li></ul></li></ul></div>'));
+        $('#catemenu').jqxMenu({ height: 27, width: 70 });
+        document.maxWidth = $(document).width();
+        document.maxHeight = $(document).height();
+        $('#catemenu').on('shown', function (e) {
+            var doc = $(document);
+            var el = $(e.args.subMenuElement);
+            var pos = el.offset();
+            var a = 'right';
+            var v = 'down';
+            var c = false;
+            if ((pos.left + el.width()) > document.maxWidth) {
+                c = true;
+                a = 'left';
+            }
+            if ((pos.top + el.height()) > document.maxHeight) {
+                c = true;
+                v = 'up';
+            }
+            if (c) {
+                $("#catemenu").jqxMenu('setItemOpenDirection', e.args.id, a, v);
+                $('#catemenu').jqxMenu('closeItem', e.args.id);
+                $('#catemenu').jqxMenu('openItem', e.args.id);
+            }
+        });
+    }, null);
+    dataTable.loadTypePage(0, 1);
+    function reloadPage(type, page, name) {
+        $('#menucur').html(name);
+        dataTable.loadTypePage(type, page);
+    }
+</script>

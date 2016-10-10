@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE902B7F-B059-4762-8B53-EECBCB1B831C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cnaws.Data</RootNamespace>
+    <AssemblyName>Cnaws.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataException.cs" />
+    <Compile Include="DataColumnAttribute.cs" />
+    <Compile Include="DataFunctionAttribute.cs" />
+    <Compile Include="DataJoin.cs" />
+    <Compile Include="DataOrder.cs" />
+    <Compile Include="DataParameter.cs" />
+    <Compile Include="DataProvider.cs" />
+    <Compile Include="DataQuery.cs" />
+    <Compile Include="DataSource.cs" />
+    <Compile Include="DataTableAttribute.cs" />
+    <Compile Include="DataUtility.cs" />
+    <Compile Include="DataWhere.cs" />
+    <Compile Include="DbRow.cs" />
+    <Compile Include="DbTable.cs" />
+    <Compile Include="DbTable_ExecuteCount.cs" />
+    <Compile Include="DbTable_ExecuteReader.cs" />
+    <Compile Include="DbTable_ExecuteReader_SplitPage.cs" />
+    <Compile Include="DbTable_ExecuteScalar.cs" />
+    <Compile Include="DbTable_ExecuteSingleRow.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DeleteBucket.cs" />
+    <Compile Include="InsertBucket.cs" />
+    <Compile Include="Providers\MSSQLProvider.cs" />
+    <Compile Include="Providers\MySQLProvider.cs" />
+    <Compile Include="Providers\PostgreSQLProvider.cs" />
+    <Compile Include="Providers\SQLiteProvider.cs" />
+    <Compile Include="Query\Db.cs" />
+    <Compile Include="Query\DbColumn.cs" />
+    <Compile Include="Query\DbCountQuery.cs" />
+    <Compile Include="Query\DbFirstQuery.cs" />
+    <Compile Include="Query\DbGroupBy.cs" />
+    <Compile Include="Query\DbGroupByQuery.cs" />
+    <Compile Include="Query\DbInsertInstanceQuery.cs" />
+    <Compile Include="Query\DbInsertQuery.cs" />
+    <Compile Include="Query\DbJoinGroupByQuery.cs" />
+    <Compile Include="Query\DbJoinQuery.cs" />
+    <Compile Include="Query\DbJoinSelectQuery.cs" />
+    <Compile Include="Query\DbJoinWhereQuery.cs" />
+    <Compile Include="Query\DbOrderBy.cs" />
+    <Compile Include="Query\DbOrderByQuery.cs" />
+    <Compile Include="Query\DbQuery.cs" />
+    <Compile Include="Query\DbQueryBuilder.cs" />
+    <Compile Include="Query\DbQueryRowNumberBuilder.cs" />
+    <Compile Include="Query\DbSelect.cs" />
+    <Compile Include="Query\DbSelectQuery.cs" />
+    <Compile Include="Query\DbSetAddQuery.cs" />
+    <Compile Include="Query\DbSetQuery.cs" />
+    <Compile Include="Query\DbSetQueryBase.cs" />
+    <Compile Include="Query\DbSetSelectQuery.cs" />
+    <Compile Include="Query\DbSetSelectResultQuery.cs" />
+    <Compile Include="Query\DbSingleQuery.cs" />
+    <Compile Include="Query\DbSubGroupByQuery.cs" />
+    <Compile Include="Query\DbSubSelectQuery.cs" />
+    <Compile Include="Query\DbSubWhereQuery.cs" />
+    <Compile Include="Query\DbToArrayQuery.cs" />
+    <Compile Include="Query\DbToListQuery.cs" />
+    <Compile Include="Query\DbUpdateExecuteQuery.cs" />
+    <Compile Include="Query\DbDeleteInstanceQuery.cs" />
+    <Compile Include="Query\DbUpdateInstanceQuery.cs" />
+    <Compile Include="Query\DbDeleteQuery.cs" />
+    <Compile Include="Query\DbUpdateQuery.cs" />
+    <Compile Include="Query\DbDeleteWhereQuery.cs" />
+    <Compile Include="Query\DbUpdateWhereQuery.cs" />
+    <Compile Include="Query\DbValuesQuery.cs" />
+    <Compile Include="Query\DbSelectWhereQuery.cs" />
+    <Compile Include="Query\DbWhere.cs" />
+    <Compile Include="Query\DbWhereQueue.cs" />
+    <Compile Include="Query\IDbExecute.cs" />
+    <Compile Include="Query\IDbSelectQuery.cs" />
+    <Compile Include="Query\IDbSubQuery.cs" />
+    <Compile Include="Query\IDbJoinQuery.cs" />
+    <Compile Include="Query\IDbUpdateQuery.cs" />
+    <Compile Include="UpdateBucket.cs" />
+    <Compile Include="SplitPageData.cs" />
+    <Compile Include="TDbTable.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cnaws\Cnaws.csproj">
+      <Project>{e629a227-782d-47a6-b49b-31ff16ccbeb2}</Project>
+      <Name>Cnaws</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
