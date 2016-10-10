@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "scripts/shoppingCart.min.js",
+    "inputFiles": [
+      "scripts/shoppingCart.js"
+    ]
+  },
+  {
+    "outputFileName": "scripts/shoppingCart-1.0.0.min.js",
+    "inputFiles": [
+      "scripts/shoppingCart-1.0.0.js"
+    ]
+  }
+]

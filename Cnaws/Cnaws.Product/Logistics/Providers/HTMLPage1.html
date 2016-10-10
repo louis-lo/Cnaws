@@ -1,0 +1,630 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>单号查询 - 中通快递</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="中通快递官网为您提供中通快递单号(运单)跟踪查询,投诉电话查询,运费报价查询,中通营业网点查询,在线下单(寄件)等服务,全国统一客服热线：4008-270270." name="Description" />
+    <meta content="中通快递单号查询,网点查询,投诉电话查询,在线寄件" name="Keywords" />
+    <meta content="中通快递官网为您提供中通快递单号(运单)跟踪查询,投诉电话查询,运费报价查询,中通营业网点查询,在线下单(寄件)等服务,全国统一客服热线：4008-270270." name="searchtitle" />
+    <meta content="all" name="robots" />
+    <meta name="renderer" content="webkit">
+    <meta name="mobile-agent" content="format=html5;url=http://wap.zto.com/" />
+    <meta name="mobile-agent" content="format=wml; url=http://wap.zto.com" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="/Content/themes/ztotheme/js/jquery-1.7.2.min.js"></script>
+    <script src="/Scripts/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="/Content/themes/ztotheme/js/zto.js?v20141215"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/themes/ztotheme/Images/zto_favicon.png" media="screen" />
+
+
+    <script type="text/javascript">
+        var url = window.location.href;
+        var u = url.substring(url.indexOf("#") + 1, url.length);
+        if (url.indexOf("#") > -1) {
+            if (u == "mobile") {
+                setCookie("ismobile", "true");
+            }
+        }
+        var browser = {
+            versions: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') > -1,
+                    presto: u.indexOf('Presto') > -1,
+                    webKit: u.indexOf('AppleWebKit') > -1,
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/),
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) && u.indexOf('MiuiBrowser') == -1,
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1 || u.indexOf('MiuiBrowser') > -1,
+                    iPhone: u.indexOf('iPhone') > -1 && u.indexOf('MiuiBrowser') == -1,
+                    iPad: u.indexOf('iPad') > -1,
+                    wp: u.indexOf('IEMobile') > -1 || u.indexOf('Windows Phone') > -1,
+                    Nokia: u.indexOf('Symbian') > -1,
+                    webApp: u.indexOf('Safari') == -1
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        };
+
+        if (browser.versions.mobile || browser.versions.wp || browser.versions.iPad || browser.versions.iPhone || browser.versions.Nokia) {
+            if (getCookie("ismobile") != "true") {
+
+                location.replace('http://wap.zto.com/');
+            }
+        }
+    </script>
+
+    <link href="/Content/themes/ztotheme/css/Customersv.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/themes/ztotheme/css/base.css?201411010" rel="stylesheet" type="text/css" />
+
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+
+
+    <script type="text/javascript" src="/Content/themes/ztotheme/js/manhua_bubbletips.js"></script>
+
+
+</head>
+<body>
+    <div class="headTips yixin"></div>
+    <div id="headwarp">
+        <div id="headState" class="upper">
+
+        </div>
+        <script>
+    $("#headState").load("/Account/Index")
+        </script>
+
+        <div class="head">
+            <div class="headcont clearfix" style="position: relative">
+                <div class="fl">
+                    <a href="/">
+                        <img src="/Content/themes/ztotheme/Images/base/logo.png" width="250" height="51" />
+                    </a>
+                    <img src="/Content/themes/ztotheme/Images/base/head-image_18.png" width="198" height="26" />
+
+                </div>
+                <a href="http://www.tltour.gov.cn/main.asp" title="中国画城·潇洒桐庐" target="_blank" class="tonglu"></a>
+                <div class="fr" style="margin-top: -5px">
+                    <ul>
+                        <li>
+                            <a title="中通快递官方微博" href="http://weibo.com/zto200258" target="_blank">
+                                <img src="/Content/themes/ztotheme/Images/base/head-icon-1.png" width="36" height="34" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="中通官方支付宝服务窗" id="headzhifubao" href="/Alipay/">
+                                <img src="/Content/themes/ztotheme/Images/base/head-icon-2.png?v20150420" width="35" height="34" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="中通微信公众号" href="/WeChat/" id="headweixin">
+                                <img src="/Content/themes/ztotheme/Images/base/head-icon-3.png" width="35" height="34" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="中通QQ公众号" href="/Qq/" id="headqq">
+                                <img src="/Content/themes/ztotheme/Images/base/qq.png" width="35" height="34" />
+                            </a>
+                        </li>
+                        <li>
+                            <a title="手机触屏版" href="/WAP/">
+                                <img src="/Content/themes/ztotheme/Images/base/head-icon-4.png" width="35" height="34" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="menu">
+            <div class="menucont">
+                <div class="fl">
+                    <ul class="clearfix nav" id="nav">
+                        <li class="nLi ">
+                            <h3><a href="/">首页</a></h3>
+                        </li>
+                        <li class="nLi ">
+                            <h3><a href="/ServiceProduct">产品服务</a></h3>
+                            <ul class="sub">
+                                <li><a href="/ServiceProduct/TimeProduct8/">时效件</a></li>
+                                <li><a href="/ServiceProduct/ElectronicBill/">增值服务</a></li>
+                                <li><a href="/ServiceProduct/CHK/">港台件</a></li>
+                                <li><a href="/ServiceProduct/DRU/">国际件</a></li>
+                                <li><a href="/ServiceProduct/EAfterSale/">售后服务</a></li>
+                            </ul>
+                        </li>
+                        <li class="nLi on">
+                            <h3><a href="/GuestService">客户服务</a></h3>
+                            <ul class="sub">
+                                <li><a href="/GuestService/">快件查询</a></li>
+                                <li><a target="_blank" href="http://zto.kuaidihelp.com/nearby">附近快递员</a></li>
+
+                                <li><a href="/GuestService/SiteQuery/">服务网点查询</a></li>
+                                <li><a href="/GuestService/PriceQuery/">报价时效查询</a></li>
+                                <li><a href="/GuestService/Contraband/">禁寄品须知</a></li>
+                                <li><a href="/GuestService/Complaints/">投诉电话查询</a></li>
+
+
+                                <li><a href="http://zop.zto.com">开放平台</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="nLi ">
+                            <h3><a href="/League">加盟合作</a></h3>
+                            <ul class="sub">
+                                <li><a href="/League/">国内合作</a></li>
+                                <li><a href="/League/International/">国际合作</a></li>
+                                <li><a href="/League/Instructions/">合作说明</a></li>
+                                <li><a href="/League/Rulers/">合作商守则</a></li>
+                            </ul>
+                        </li>
+                        <li class="nLi ">
+                            <h3><a href="/Job">人才招聘</a></h3>
+
+                        </li>
+                        <li class="nLi ">
+                            <h3><a href="/CompanyIntroduce">走进中通</a></h3>
+                            <ul class="sub">
+                                <li><a href="/CompanyIntroduce/">企业介绍</a></li>
+                                <li><a href="/CompanyIntroduce/SocialResponsibility/">社会荣誉</a></li>
+                                <li><a href="/CompanyIntroduce/CompanyEvents/">企业文化</a></li>
+                                <li><a href="/CompanyIntroduce/CompanyVideo/">企业展示</a></li>
+                                <li><a href="/CompanyIntroduce/CompanyTel/">联系我们</a></li>
+                            </ul>
+                        </li>
+                        <li class="nLi ">
+                            <h3><a href="/News">新闻动态</a></h3>
+                            <ul class="sub">
+                                <li><a href="/News/">公司动态</a></li>
+                                <li><a href="/News/BusinessNews/">行业新闻</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="kefuicon">
+                    <a href="/GuestService/Service/">
+                        <img src="/Content/themes/ztotheme/Images/base/kefuicon1.png" width="240" height="61" />
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="content">
+        <div class="contentwarp clearfix">
+            <div class="fl w190">
+                <div class="servicect">
+                    <div class="title1">
+                        <div class="titleicon">
+                            <img src="/Content/themes/ztotheme/Images/query.png" width="29" height="26" />
+                        </div>
+                        <div class="text">查询服务</div>
+                    </div>
+                    <div class="contentlist">
+                        <ul>
+                            <li class=""><a href="/GuestService">快件查询</a></li>
+                            <li class=""><a href="/GuestService/InternationalBillQuery">国际单号查询</a></li>
+                            <li class=""><a href="/GuestService/SiteQuery">服务网点查询</a></li>
+                            <li class=""><a href="/GuestService/PriceQuery">报价时效查询</a></li>
+                            <li class=""><a href="/GuestService/Contraband">禁寄品须知</a></li>
+                            <li class=""><a href="/GuestService/Complaints">投诉电话查询</a></li>
+                            <li class=""><a href="http://zop.zto.com">开放平台</a></li>
+                            <li class=""><a href="/GuestService/ApplyEBillApi">电子面单API申请</a></li>
+                            <li class=""><a href="/GuestService/ThirdAccess">第三方O2OAPI申请</a></li>
+                            <li class=""><a href="/GuestService/Print">面单打印</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="servicect mt20">
+                    <div class="title1">
+                        <div class="titleicon">
+                            <img src="/Content/themes/ztotheme/Images/serviceicon-2.png" width="29" height="26" />
+                        </div>
+                        <div class="text">客户服务</div>
+
+                    </div>
+                    <div class="servicectbd">
+                        <ul class="clearfix mb15">
+
+                            <li class="firstChild">
+                                <div>
+                                    <a href="/GuestService/Contraband" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-3.png" width="39" height="38" />
+                                    </a>
+                                </div>
+                                <h5><a href="/GuestService/Contraband" target="_blank">违禁品</a></h5>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="/GuestService/SiteQuery" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-1.png" width="39" height="39" />
+                                    </a>
+                                </div>
+                                <h5><a href="/GuestService/SiteQuery" target="_blank">网点查询</a></h5>
+                            </li>
+
+                            <li>
+                                <div>
+                                    <a href="/GuestService/PriceQuery" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-2.png" width="39" height="38" />
+                                    </a>
+                                </div>
+                                <h5><a href="/GuestService/PriceQuery" target="_blank">报价时效</a></h5>
+                            </li>
+                        </ul>
+                        <ul class="clearfix mb15">
+                            <li class="firstChild">
+                                <div>
+                                    <a href="http://my.zto.com/Order/">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-4.png" width="39" height="38" />
+                                    </a>
+                                </div>
+                                <h5><a href="http://my.zto.com/Order/">在线寄件</a></h5>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="http://my.zto.com/Bill/Index/">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-5.png" width="41" height="38" />
+                                    </a>
+                                </div>
+                                <h5><a href="http://my.zto.com/Bill/Index/">单号订阅</a></h5>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="/GuestService/GuestBook/" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-6.png" width="39" height="38" />
+                                    </a>
+                                </div>
+                                <h5><a href="/GuestService/GuestBook/" target="_blank">投诉建议</a></h5>
+                            </li>
+                        </ul>
+                        <ul class="clearfix mb15">
+
+                            <li class="firstChild">
+                                <div>
+                                    <a href="/GuestService/ServiceGuide" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-7.png" width="39" height="38">
+                                    </a>
+                                </div>
+                                <h5><a href="/GuestService/ServiceGuide">服务指南</a></h5>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="http://zop.zto.com" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-8.png" width="39" height="38">
+                                    </a>
+                                </div>
+
+                                <h5><a href="http://zop.zto.com" target="_blank">开放平台</a></h5>
+                            </li>
+                            <li>
+                                <div>
+                                    <a href="http://www.ztbest.com" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/pdicon-10.png" width="39" height="38">
+                                    </a>
+                                </div>
+                                <h5><a href="http://www.ztbest.com" target="_blank">中通优选</a></h5>
+                            </li>
+                        </ul>
+                        <ul class="clearfix mb15">
+                            <li class="firstChild">
+                                <div>
+                                    <a href="/GuestService/Print" target="_blank">
+                                        <img src="/Content/themes/ztotheme/Images/base/print.png" width="39" height="38">
+                                    </a>
+                                </div>
+                                <h5><a href="/GuestService/Print">面单打印</a></h5>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="fr w770">
+                <div class="ad">
+                    <img src="/Content/themes/ztotheme/Images/query.jpg" width="770" height="173" />
+                </div>
+
+                <script src="/Content/js/layer/layer.min.js" type="text/javascript"></script>
+                <style type="text/css">
+                    .listbd .querycont .queryinfor ul li {
+                        width: 134px;
+                    }
+
+                    .pingfen {
+                        cursor: pointer;
+                    }
+                </style>
+
+                <div class="listbd">
+                    <div style="height: 230px; position: relative; z-index: 2">
+                        <div class="title">
+                            <div class="titleicon1">
+                                <img src="/Content/themes/ztotheme/Images/search.png" width="26" height="22" />
+                            </div>
+                            <h3>单号查询</h3>
+                        </div>
+                        <form action="/GuestService/BillNew" method="post" style="position: relative;">
+                            <textarea class="queryinput" name="txtBill" id="txtBill" placeholder="请输入要查询的单号多个单号请用Enter(回车)键隔开">376121801969</textarea>
+                            <div class="searchBillHistoryNew">
+                                <img src="/Content/themes/ztotheme/Images/new.gif" class="new" />
+                                <a class="BillHistoryNew">查询记录</a>
+                                <div class="bg"></div>
+                            </div>
+                            <button type="submit" class="orangebutton" style="position: absolute; left: 630px; top: 144px;">确定</button>
+                        </form>        <div class="validation-summary-valid" data-valmsg-summary="true">
+                            <ul>
+                                <li style="display:none"></li>
+                            </ul>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="clearfix mt20" style="position: relative; z-index: 1">
+
+                        <script type="text/javascript">
+                $(document).ready(function () {
+                    $('html,body').animate({ scrollTop: 620 }, 500);
+                    $(".telTitle li").live("click", function () {
+                        var i = $(this).index();
+                        $(".telTitle li,.telMain table").removeClass("curr");
+                        $(this).addClass("curr");
+                        $(".telMain table").eq(i).addClass("curr");
+                    });
+                    $("#change").click(function () {
+                        $("#imgValidateCode").click();
+
+                    });
+
+                });
+                function changeCheckCode(element) {
+                    element.src = "/Verify/GetValidateCode?datetime=" + (new Date()).getTime();
+                }
+                        </script>
+                        <div class="fl w540 querycont ">
+                            <h3>运单号：376121801969</h3>
+                            <input id="Status" style="display: none" value="签收" />
+                            <h4 class=" luyouqiehuan">以下为优化后的信息，若要查看详细信息  <a href="/GuestService/Bill?model.TxtBill=376121801969$">请点击</a></h4>
+                            <div class="queryinfor clearfix h100">
+                                <ul>
+                                    <li style="border-left: none;">
+                                        <div class="img">
+                                            <a class="pingfen">
+                                                <img src="/Content/themes/ztotheme/Images/billsearch_time.png" width="35" height="35">
+                                            </a>
+                                        </div>
+                                        <div class="text3">1天19小时</div>
+                                    </li>
+                                    <li>
+                                        <div class="img">
+                                            <a class="pingfen pjsTel1">
+                                                <img src="/Content/themes/ztotheme/Images/billsearch_state.png" width="35" height="35" />
+                                            </a>
+                                        </div>
+                                        <div class="text3">
+                                            签收
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="img" style="">
+                                            <img src="/Content/themes/ztotheme/Images/BillSub.png" width="43" />
+                                        </div>
+                                        <div class="text3">单号订阅</div>
+                                    </li>
+
+                                    <li>
+                                        <div class="img">
+                                            <a>
+                                                <img class="pingfen" id="pingfen1" src="/Content/themes/ztotheme/Images/pingfen/pingfen.png" width="41">
+                                            </a>
+
+                                            <script type="text/javascript">
+                                        $("#pingfen1").click(function () {
+                                            $.layer({
+                                                type: 2,
+                                                title: "我要评分",
+                                                area: ['650px', '420px'],
+                                                border: [0], //去掉默认边框
+                                                iframe: { src: '/GuestService/BillDetails?BillCode=376121801969&BeginSite=东莞石鼓&DeliverySite=桃江&TimeSpan=1.19:43:39&IpAddress=183.63.217.175&Status=签收' }
+                                            });
+                                            $(".xubox_page").css("width", "100%");
+                                            $(".xubox_title").css({ "border-radius": "8px 8px 0px 0px" });
+                                            $(".xubox_main").css({ "border-radius": "8px" });
+                                        });
+                                            </script>
+                                        </div>
+                                        <div class="text3 pingfen">投诉评分</div>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                            <div class="state">
+                                <ul>
+                                    <li class="pr firstChild current1">
+                                        <div data-billcode="376121801969" data-sitename="东莞石鼓" class="routeTips" style=" overflow hidden;position absolute; right 10px; width 76px; height 44px; top 8px">
+                                            <img src="/Content/themes/ztotheme/Images/ViewSignImage.gif" />签收照片
+                                        </div>
+                                        <div class="on">快件已在 <a data-sitecode='30158' data-sitetel='0769-22887455、0769-22887457、0769-22822977' class='routeTips'>东莞石鼓</a> 签收  <a data-billcode='376121801969' class='routeTips' data-sitename='东莞石鼓'>签收照片</a></div>
+                                        <div class="time">2016-02-23 12:49:49</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class=""><a data-sitecode='30158' data-sitetel='0769-22887455、0769-22887457、0769-22822977' target='_blank' style='color:red' href='http://www.kuaidihelp.com/wangdian/kdyDetail?mobile=15899901058' class='routeTips'>东莞石鼓</a> 的 <a data-sitetel='15899901058' target='_blank' style='color:red' href='http://www.kuaidihelp.com/wangdian/kdyDetail?mobile=15899901058' class='routeTips'>苏成</a> 正在派件</div>
+                                        <div class="time">2016-02-23 09:04:52</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class="">快件 已到达   <a data-sitecode='30158' data-sitetel='0769-22887455、0769-22887457、0769-22822977' class='routeTips'>东莞石鼓</a></div>
+                                        <div class="time">2016-02-23 07:48:52</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class="">快件 已从   <a data-sitecode='76901' data-sitetel='' class='routeTips'>东莞市</a> 发出 </div>
+                                        <div class="time">2016-02-22 14:23:50</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class="">快件 已到达   <a data-sitecode='76901' data-sitetel='' class='routeTips'>东莞市</a></div>
+                                        <div class="time">2016-02-22 13:36:45</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class="">快件 已从   <a data-sitecode='73199' data-sitetel='' class='routeTips'>长沙市</a> 发出 </div>
+                                        <div class="time">2016-02-22 02:56:19</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class="">快件 已到达   <a data-sitecode='73199' data-sitetel='' class='routeTips'>长沙市</a></div>
+                                        <div class="time">2016-02-21 22:25:56</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class="">快件 已从   <a data-sitecode='73740' data-sitetel='0737-8885189、0737-8822077' class='routeTips'>桃江</a> 发出 </div>
+                                        <div class="time">2016-02-21 19:06:56</div>
+                                    </li>
+                                    <li class="pr ">
+                                        <div class=""><a data-sitecode='73740' data-sitetel='0737-8885189、0737-8822077' target='_blank' style='color:red' href='http://www.kuaidihelp.com/wangdian/kdyDetail?mobile=13317370277' class='routeTips'>桃江</a> 的 <a data-sitetel='13317370277' target='_blank' style='color:red' href='http://www.kuaidihelp.com/wangdian/kdyDetail?mobile=13317370277' class='routeTips'>桃江</a> 已收件 </div>
+                                        <div class="time">2016-02-21 17:06:10</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clearfix "></div>
+                        <div class="mt20 "></div>
+
+
+                        <div id="qrcodecontainer" class="code fr">
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+
+
+                <script>
+        if ($(".listbd").height() < 600) {
+            $(".listbd").height(755);
+        }
+        $($("#qrcodecontainer").load("/GuestService/GetQrcode?txtbill=376121801969$&Status=" + $("#Status").val()));       // $($("#qrcodecontainer").load("/GuestService/GetQrcode?txtbill=376121801969$"));
+        $("#open").click(function () {
+            $(this).hide();
+            $(".morequerycont ").removeClass("none");
+        });
+        $(".routeTips").bind("mouseover", function () {
+            $(".docBubble").remove();
+            var $this = $(this);
+            var billcode = $this.attr("data-billcode");
+            var siteName = $this.attr("data-sitename");
+            //var billcode = $(this).offsetParent(".querycont").find("h3").text().replace("运单号：", "");
+            if ($(this).text().trim() != "签收照片") {
+                var v = $(this).attr("data-sitetel");
+                if (v != "undefined" && v != null && v != "") {
+                    $this.manhua_bubbletips({ position: "t", value: 35, content: "联系方式:<br />" + v + "" });
+                }
+            } else {
+                $.get("/GuestService/GetBillImg", { billcode: billcode, siteName: siteName }, function (res) {
+
+                    if (res.Result == true) {
+                        $this.manhua_bubbletips({ position: "t", value: 35, content: "<img width=\"200\" src=\"" + res.Data + "\" />" });
+                    }
+                    else {
+                    }
+                });
+            }
+        });
+        $(document).bind('mousedown',
+            function (event) {
+                var $target = $(event.target);
+                if ((!($target.parents().andSelf().is('.docBubble'))) && (!$target.is(".routeTips"))) {
+                    $(".docBubble").remove();
+                }
+            });
+        //读取查单记录
+        historyBillNew();
+        //新功能提示。
+                </script>
+                <object id="objGetMac" classid="clsid:C377230F-0F21-4838-938D-CB95B65BF023" codebase="SecActiveX.cab#version=1,0,0,1"
+                        style="display: none;"></object>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div style="width: 980px; position: relative; margin: 0px auto">
+    </div>
+    <div id="floot">
+        <div class="flootcont clearfix">
+            <div class="icon1"></div>
+            <div class="icon2"></div>
+            <div class="fl w660">
+                <h5>
+                    中通快递 © 版权所有  沪ICP备13044869号  简历投递邮箱：zp-hr@zto.cn<br />
+                    总部地址：上海市青浦区华新镇华志路1685号
+                    <script type="text/javascript">
+
+                        var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                        document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F53a93979e64ab8e76c06653f6830c385' type='text/javascript'%3E%3C/script%3E"));
+
+                    </script>
+                    邮政编码：201708   咨询电话：95311
+                </h5>
+                <div class="beianicon">
+                    <ul class="clearfix">
+                        <li>
+                            <img src="/Content/themes/ztotheme/Images/base/beianicon-1.png" width="30" height="30" />
+                        </li>
+                        <li>
+                            <img src="/Content/themes/ztotheme/Images/base/beianicon-2.png" width="30" height="33" />
+                        </li>
+
+                        <li>
+                            <a href="http://www.51315.cn/company_details_1161" title="诚信在线" target="_blank">
+                                <img src="/Content/themes/ztotheme/Images/base/beianicon-4.png" width="30" height="33" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011802001028" target="_blank">
+                                <img src="/Content/themes/ztotheme/Images/base/1_04.png" width="138" height="35">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fr w300">
+                <ul class="flink">
+                    <li><a href="http://mail.zto.cn/" target="_blank">企业邮箱</a></li>
+                    <li><a href="http://www.zt-express.com/" target="_blank">中通内网门户</a></li>
+                    <li><a href="/Job">人才招聘</a></li>
+                    <li><a href="http://www.ztbest.com/" target="_blank">中通优选</a></li>
+                    <li><a href="http://www.spb.gov.cn/" target="_blank">国家邮政局</a></li>
+                    <li><a href="http://www.cea.org.cn/" target="_blank">快递协会</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="go">
+        <a title="返回顶部" class="top"></a>
+
+        <a title="企业QQ客服-工作时间：8:30-17:30" href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzkzODAzMzA3NV84NDQ5NF80MDA4MjcwMjcwXzJf" target="_blank" class="qq"></a>
+        <a title="旺旺客服-工作时间：8:30-17:30" href="http://amos.im.alisoft.com/getcid.aw?v=3&amp;uid=%D6%D0%CD%A8%D4%DA%CF%DF%BF%CD%B7%FE&amp;site=cntaobao&amp;groupid=148442&amp;s=1&amp;charset=gbk" target="_blank" class="msn"></a>
+        <a title="投诉与留言" class="feedback" href="/GuestService/GuestBook" target="_blank"></a>
+        <a title="全国客服投诉电话" class="tel" href="/GuestService/Complaints/" target="_blank"></a>
+        <a title="返回底部" class="bottom"></a>
+    </div>
+
+
+
+    <!--[if IE 6]>
+        <script type="text/javascript" src="/Content/themes/ztotheme/js/DD_belatedPNG.js"></script>
+        <script type="text/javascript">
+            DD_belatedPNG.fix('div,img,a');
+        </script>
+    <![endif]-->
+</body>
+</html>

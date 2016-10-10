@@ -1,0 +1,178 @@
+﻿<div id="bannercs"></div>
+<div id="bannerc" style="display:none;">
+    <div><span>添加BANNER</span></div>
+    <div>
+        <form id="bform" action="" method="post">
+            <div style="margin-bottom:6px;">
+                <table border="0" cellpadding="0" cellspacing="0" class="table">
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="btitle">标题：</label></td>
+                        <td><input id="btitle" name="Title" type="text" class="text" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="bimage">图片：</label></td>
+                        <td><input id="bimage" name="Image" type="text" class="text" /><input id="bview" type="button" value="浏览" class="cancel" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="burl">链接：</label></td>
+                        <td><input id="burl" name="Url" type="text" class="text" /></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><label for="bsort">排序：</label></td>
+                        <td><div id="bsort"></div></td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:78px;"><label for="bvisibility">显示：</label></td>
+                        <td><input id="bvisibility" name="Visibility" type="checkbox" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right;padding:10px;">
+                <input type="button" id="ok" value="确定" class="submit" />
+                <input type="button" id="cancel" value="取消" class="cancel" />
+                <div style="display:none"><textarea id="bcontent"></textarea></div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var editor = null;
+    var actionrenderer = function (row, column, value) {
+        return '<div class="action"><a href="javascript:;" onclick="return doDelete(' + value + ')">删除</a></div>';
+    };
+    var imagerenderer = function (row, datafield, value) {
+        return '<div class="action"><img src="' + value + '" style="width:16px;height:16px"/></div>';
+    }
+    function reset() {
+        $('#btitle').val('');
+        $('#bimage').val('');
+        $('#burl').val('');
+    }
+    function showAdd() {
+        reset();
+        $('#bannerc').jqxWindow('open');
+    }
+    function doDelete(id) {
+        if (window.confirm('确定要删除该BANNER吗？')) {
+            postAjax('$url("banner/del")', 'Id=' + id, function (data, args) {
+                if (showResult(data, '删除BANNER成功', '删除BANNER失败', null)) {
+                    dataTable.reloadPage();
+                }
+            }, null);
+        }
+        return false;
+    }
+    var mainWindow = initWindow('bannerc', 'bform', [
+        { input: '#bimage', message: '图片不能为空!', action: 'keyup, blur', rule: 'required' }
+    ], null, null, null, function () {
+        if (editor == null) {
+            editor = KindEditor.create('#bcontent', {
+                cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                uploadJson: '$filesystem("upload")',
+                fileManagerJson: '$filesystem("filemanager")',
+                allowFileManager: true
+            });
+            $('#bview').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: $('#bimage').val(),
+                        clickFn: function (url, title) {
+                            $('#bimage').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        }
+    }, function (form) {
+        postAjax('$url("banner/add")', form.serialize() + '&SortNum=' + $('#pbsort').val(), function (data, args) {
+            if (showResult(data, '添加BANNER成功', '添加BANNER失败', null)) {
+                dataTable.reloadPage();
+            }
+            mainWindow.close();
+            mainWindow.end();
+        }, null);
+    }, null);
+    $('#bsort').jqxNumberInput({ width: 300, min: 0, inputMode: 'simple', spinButtons: true, decimalDigits: 0 });
+    var dataTable = initDataTable('bannercs', '$url("banner/list/")', [
+        { name: 'Id', type: 'int' },
+        { name: 'Title', type: 'string' },
+        { name: 'Image', type: 'string' },
+        { name: 'Url', type: 'string' },
+        { name: 'SortNum', type: 'int' },
+        { name: 'Visibility', type: 'bool' }
+    ], [
+			{
+			    text: '标题', datafield: 'Title', width: '20%', columntype: 'textbox', cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+			        if (newvalue == '') {
+			            return oldvalue;
+			        }
+			    }
+			},
+            {
+                text: '图片', datafield: 'Image', width: '20%', cellsrenderer: imagerenderer, createeditor: function (row, cellvalue, editor_, cellText, width, height) {
+                    editor_.jqxInput({ height: height, width: width, value: cellvalue });
+                    if (editor == null) {
+                        editor = KindEditor.create('#pbcontent', {
+                            cssPath: '$res("/resource/static/kindeditor/plugins/code/prettify.css")',
+                            uploadJson: '$filesystem("upload")',
+                            fileManagerJson: '$filesystem("filemanager")',
+                            allowFileManager: true
+                        });
+                    }
+                },
+                initeditor: function (row, cellvalue, editor_, celltext, pressedkey) {
+                    editor.loadPlugin('image', function () {
+                        editor.plugin.imageDialog({
+                            imageUrl: cellvalue,
+                            clickFn: function (url, title) {
+                                editor_.val(url);
+                                editor.hideDialog();
+                            }
+                        });
+                    });
+                },
+                geteditorvalue: function (row, cellvalue, editor_) {
+                    return editor_.val();
+                }
+            },
+            {
+                text: '链接', datafield: 'Url', width: '30%', columntype: 'textbox', cellvaluechanging: function (row, column, columntype, oldvalue, newvalue) {
+                    if (newvalue == '') {
+                        return oldvalue;
+                    }
+                }
+            },
+			{
+			    text: '排序', datafield: 'SortNum', width: '10%', columntype: 'numberinput', validation: function (cell, value) {
+			        if (value < 0) {
+			            return { result: false, message: "值必须大于或等于0" };
+			        }
+			        return true;
+			    }
+			},
+            { text: '显示', datafield: 'Visibility', width: '10%', columntype: 'checkbox' },
+			{ text: '操作', datafield: 'Id', minwidth: '10%', editable: false, cellsrenderer: actionrenderer }
+    ], function (toolbar) {
+        toolbar.empty();
+        var container = $("<div style='margin: 5px;'></div>");
+        var input = $("<input class='jqx-rc-all jqx-button jqx-widget jqx-fill-state-normal' id='clearField' type='button' style='height: 23px; float: left; width: 80px;' value='添加' />");
+        toolbar.append(container);
+        container.append(input);
+        input.on('click', function (event) {
+            showAdd();
+            return false;
+        });
+    }, function (rowid, rowdata, commit) {
+        postAjax('$url("banner/mod")', 'Id=' + rowdata.Id + '&Title=' + encodeURIComponent(rowdata.Title) + '&Image=' + encodeURIComponent(rowdata.Image) + '&Url=' + encodeURIComponent(rowdata.Url) + '&SortNum=' + rowdata.SortNum + '&Visibility=' + rowdata.Visibility, function (data, args) {
+            if (showResult(data, '修改BANNER成功', '修改BANNER失败', null)) {
+                args(true);
+                dataTable.reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadPage(1);
+</script>

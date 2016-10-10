@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="zh" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Api Helper</title>
+    <style type="text/css">/*$style$*/</style>
+    <script type="text/javascript">var CLIENT = true;</script>
+    <script type="text/javascript">/*$jquery$*/</script>
+    <script type="text/javascript">/*$script$*/</script>
+</head>
+<body>
+<table class="main" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="header" class="header">
+            <label for="project">选择项目：</label>
+            <a id="project" href="javascript:void(0)">浏览...</a>
+            <a id="save" href="javascript:void(0)">导出HTML</a>
+            <span>查找(Ctrl+F)</span>
+        </td>
+    </tr>
+    <tr>
+        <td id="context" class="context"><div id="content" class="content">/*$content$*/</div></td>
+    </tr>
+</table>
+<div id="dialog" class="dialog" style="display:none">
+    <div class="title"><span id="dialogt" class="dialogt"></span><a href="javascript:void(0)" onclick="Helper.CloseWindow()">关闭</a></div>
+    <div id="dialogc"></div>
+</div>
+</body>
+</html>

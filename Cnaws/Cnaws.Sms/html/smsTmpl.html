@@ -1,0 +1,29 @@
+﻿<div id="smsTmpl"></div>
+<script type="text/javascript">
+    var dataTable = initDataTable('smsTmpl', '$url("smsTmpl/list/")', [
+        { name: 'Summary', type: 'string' },
+        { name: 'Type', type: 'string' },
+        { name: 'Content', type: 'string' }
+    ], [
+			{ text: '名称', datafield: 'Summary', width: '15%', editable: false },
+			{
+			    text: '类型', datafield: 'Type', width: '3%', editable: false, cellsrenderer: function (row, column, value, defaultHtml) {
+			        return value === 'Text' ? '文本' : 'ID';
+			    }
+			},
+			{ text: '模板', datafield: 'Content', width: '82%', columntype: 'textbox' }
+    ], null, function (rowid, rowdata, commit) {
+        postAjax('$url("smsTmpl/mod")',
+            'Name=' + encodeURIComponent(rowdata.Name) +
+            '&Content=' + encodeURIComponent(rowdata.Content), function (data, args) {
+                if (showResult(data, '修改模板成功', '修改模板失败')) {
+                args(true);
+                dataTable.reloadPage();
+            }
+            else {
+                args(false);
+            }
+        }, commit);
+    });
+    dataTable.loadPage(1);
+</script>
