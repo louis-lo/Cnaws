@@ -1,9 +1,0 @@
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\bin\Debug\ProjectManager.exe.config
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\bin\Debug\ProjectManager.exe
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\bin\Debug\ProjectManager.pdb
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\obj\Debug\ProjectManager.ChildForm.resources
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\obj\Debug\ProjectManager.FormMain.resources
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\obj\Debug\ProjectManager.Properties.Resources.resources
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\obj\Debug\ProjectManager.csproj.GenerateResource.Cache
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\obj\Debug\ProjectManager.exe
-E:\马驰骋\Cnaws\Cnaws\ProjectManager\obj\Debug\ProjectManager.pdb

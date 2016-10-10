@@ -1,4 +1,0 @@
-E:\马驰骋\Cnaws\Cnaws\Cnaws.Xml\bin\Debug\Cnaws.Xml.dll
-E:\马驰骋\Cnaws\Cnaws\Cnaws.Xml\bin\Debug\Cnaws.Xml.pdb
-E:\马驰骋\Cnaws\Cnaws\Cnaws.Xml\obj\Debug\Cnaws.Xml.dll
-E:\马驰骋\Cnaws\Cnaws\Cnaws.Xml\obj\Debug\Cnaws.Xml.pdb

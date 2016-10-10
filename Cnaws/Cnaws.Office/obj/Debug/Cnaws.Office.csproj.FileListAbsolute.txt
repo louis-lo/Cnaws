@@ -1,2 +1,0 @@
-E:\马驰骋\Cnaws\Cnaws\Cnaws.Office\obj\Debug\Cnaws.Office.csprojResolveAssemblyReference.cache
-E:\马驰骋\Cnaws\Cnaws\Cnaws.Office\obj\Debug\Cnaws.Office.csproj.ResolveComReference.cache

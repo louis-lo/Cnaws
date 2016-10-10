@@ -1,7 +1,0 @@
-#pullDown,#pullUp{height:80px;line-height:80px;padding:10px 20px;font-weight:bold;color:#888;text-align:center;}
-#pullDown .pullDownIcon,#pullUp .pullUpIcon{display:block;float:left;margin-left:180px;width:80px;height:80px;background:url(/resource/static/iscroll/pull-icon.png) 0 0 no-repeat;background-size:80px 160px;-webkit-transition-property:-webkit-transform;-webkit-transition-duration:250ms;}
-#pullDown .pullDownIcon,#pullUp.flip .pullUpIcon{-webkit-transform:rotate(0deg) translateZ(0);}
-#pullUp .pullUpIcon,#pullDown.flip .pullDownIcon{-webkit-transform:rotate(-180deg) translateZ(0);}
-#pullDown .pullDownLabel,#pullUp .pullUpLabel{display:block;float:left;}
-#pullDown.loading .pullDownIcon,#pullUp.loading .pullUpIcon{background-position:0 100%;-webkit-transform:rotate(0deg) translateZ(0);-webkit-transition-duration:0ms;-webkit-animation-name:loading;-webkit-animation-duration:2s;-webkit-animation-iteration-count:infinite;-webkit-animation-timing-function:linear;}
-@-webkit-keyframes loading{from{-webkit-transform:rotate(0deg) translateZ(0);}to{-webkit-transform:rotate(360deg) translateZ(0);}}
